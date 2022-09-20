@@ -1,0 +1,46 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    /* Выравнивание вдоль основной оси флекс бокса */
+    padding: 10px;
+
+}
+
+.header button {
+    padding: 20px 50px;
+    border: none;
+    border-radius: 20px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.header button:active {
+    transform: scale(1.05);
+}
+
+.headerFavorites {
+    background-color: rgb(27, 27, 27);
+}
+
+.header button:hover {
+    filter: drop-shadow(0 0 12px rgb(24, 24, 24));
+}
+
+.headerAdd {
+    background: linear-gradient(
+        45deg, 
+        rgb(202, 2, 126), 
+        rgb(118, 20, 230)
+    );
+} 
+
+.headerAdd:hover {
+    background: linear-gradient(
+        90deg, 
+        rgb(202, 2, 126), 
+        rgb(118, 20, 230)
+    );
+}
+
+/* Сделать плавный двигающийся градиент!!! */
