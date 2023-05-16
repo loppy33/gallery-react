@@ -32,4 +32,3 @@ const AddPics = (props) => {
 
 export default AddPics;
 
-// TODO При нажатии на кнопку отмена на модал окне закрыть модал окно
