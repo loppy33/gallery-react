@@ -3,8 +3,6 @@ import './galleryList.css';
 
 
 const GalleryList = (props) => {
-
-
     return(
         <section className="galleryList">
             <div className="cardsContainer">

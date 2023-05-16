@@ -10,7 +10,18 @@ const AddPics = (props) => {
                 <input type="text" className="modalinput" placeholder="url" />
                 <div>
                     <button className="modalCancel" onClick={() => props.setModal(false)}>Отмена</button>
-                    <button className="modalAdd">Добавить</button>
+                    <button className="modalAdd" onClick={() => {
+                        props.handleCards(
+                            {
+                                img: 'https',
+                                likes: 22,
+                                comments: null,
+                                favorites: false,
+                            }
+                        )
+                        props.setModal(false)
+                    }
+                    }>Добавить</button>
                 </div>
             </div>
         </div>
