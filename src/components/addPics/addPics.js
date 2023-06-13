@@ -1,24 +1,18 @@
 import './addPics.css';
+import { useRef } from 'react';
 
 const AddPics = (props) => {
-
+    const inputRef = useRef(null);
     return (
         <div className="modal">
             <div className="modalBody">
                 <h2 className="modalTitle">Добавить новое фото</h2>
                 <p className="modalText">Добавьте url ссылку на картинку</p>
-                <input type="text" className="modalinput" placeholder="url" />
+                <input ref={inputRef} type="text" className="modalinput" placeholder="url" />
                 <div>
                     <button className="modalCancel" onClick={() => props.setModal(false)}>Отмена</button>
                     <button className="modalAdd" onClick={() => {
-                        props.handleCards(
-                            {
-                                img: 'https',
-                                likes: 22,
-                                comments: null,
-                                favorites: false,
-                            }
-                        )
+                        props.handleCards(inputRef.current.value)
                         props.setModal(false)
                     }
                     }>Добавить</button>

@@ -16,9 +16,21 @@ const CardItem = (props) => {
     const [likesCount, setLikesCount] = useState(props.likes)
     const [canLike, setCanLike] = useState(true)
     const [isCommenting, setIsCommenting] = useState(false)
+    const [cardStyle, setCardStyle] = useState({})
 
+    let cardTimeout;
     const handleCommentButtonClick = () => {
-        setIsCommenting(true);
+        if (isCommenting) {
+            cardTimeout = setTimeout(() => {
+                console.log(123)
+                setCardStyle({})
+            }, 3000)
+            setIsCommenting(false);
+        } else {
+            clearTimeout(cardTimeout)
+            setCardStyle({ zIndex: "10" })
+            setIsCommenting(true);
+        }
     };
 
 
@@ -49,9 +61,10 @@ const CardItem = (props) => {
 
     // }
 
+
     return (
         // style={evenHandler(props.id)}
-        <div className="cardBody" >
+        <div className="cardBody" style={cardStyle}>
             <img src={imageHedler()} alt="" className="cardImage" />
             <div className="cardContent">
                 <div className="like" onClick={() => {
@@ -70,18 +83,14 @@ const CardItem = (props) => {
                     // console.log(objectState.id)
 
                 }}>
-                    <div className="icon">
-
-                    </div>
                     <p><FontAwesomeIcon icon={faHeart} color={canLike ? 'gray' : 'red'} /> Мне нравится: {likesCount}</p>
                 </div>
-                <button className="cardButton" onClick={handleCommentButtonClick}>Комментировать</button>
-                {isCommenting &&
-                    <div className="commentSection">
-                        <input className="commentInput" placeholder="Оставить комментарий"></input>
-                        <FaTelegramPlane className="commentButton"/>
-                    </div>
-                }
+                <button className="cardButton" onClick={handleCommentButtonClick}>Комментировать <img src={props.image} alt="" /></button>
+
+            </div>
+            <div className="commentSection" style={isCommenting ? { transform: "translateY(100%)" } : {}}>
+                <input className="commentInput" placeholder="Оставить комментарий"></input>
+                <FaTelegramPlane className="commentButton" />
             </div>
             <div className="cardComments">
 
@@ -91,7 +100,6 @@ const CardItem = (props) => {
 };
 
 
-
 export default CardItem;
 
-// TODO При нажатии на кнопку комментировать, появлялся еще один текст с текст кнопкой оставить комментарий
+// TODO Выровнить кнопку комментировать

@@ -8,15 +8,38 @@ import Header from './components/header/header'
 function App() {
   const [cardsData, setCardsData] = useState(
     [{
-      img: 'https',
+      img: 'https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?cs=srgb&dl=pexels-pixabay-268533.jpg&fm=jpg',
       likes: 12,
       comments: null,
       favorites: false,
-    },]);
+    },
+    {
+      img: 'https://besthqwallpapers.com/Uploads/18-4-2020/128953/federa-lake-4k-beautiful-nature-summer-mountains.jpg',
+      likes: 3,
+      comments: null,
+      favorites: false,
+    },
+    {
+      img: 'https://w-dog.ru/wallpapers/3/17/328122031928999/kosmicheskij-mir-v-serom-cvete.jpg',
+      likes: 17,
+      comments: null,
+      favorites: false,
+    },
+    ]);
 
   const [isModal, setModal] = useState(false);
+
   function handleCards(card) {
-    setCardsData(...cardsData, [card])
+    let newCards = [...cardsData]
+    let newCard = {
+      img: card,
+      likes: 12,
+      comments: null,
+      favorites: false,
+    }
+    newCards.splice(0, 0, newCard)
+    // newCards.push(newCard)
+    setCardsData(newCards)
   }
   //  useEffect - вызывается после загрузки компонента 
   // useEffect(() => {
