@@ -7,6 +7,8 @@ import './cardItem.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import { FaTelegramPlane } from 'react-icons/fa';
+
 // https://fontawesome.com/
 
 
@@ -19,7 +21,7 @@ const CardItem = (props) => {
         setIsCommenting(true);
     };
 
-    
+
     // внутри useState передается Initial State (Состояние при создании & Состояние при рендере) 
 
     // const [objectState, setObjectState] = useState({
@@ -56,6 +58,7 @@ const CardItem = (props) => {
 
                     if (canLike) {
                         setCanLike(false)
+
                         setLikesCount(state => state + 1);
 
                     }
@@ -70,14 +73,15 @@ const CardItem = (props) => {
                     <div className="icon">
 
                     </div>
-                    <p><FontAwesomeIcon icon={faHeart} /> Мне нравится: {likesCount}</p>
+                    <p><FontAwesomeIcon icon={faHeart} color={canLike ? 'gray' : 'red'} /> Мне нравится: {likesCount}</p>
                 </div>
                 <button className="cardButton" onClick={handleCommentButtonClick}>Комментировать</button>
-                {isCommenting && (
+                {isCommenting &&
                     <div className="commentSection">
-                        <input className="leaveCommentButton" placeholder="Оставить комментарий<"></input>
+                        <input className="commentInput" placeholder="Оставить комментарий"></input>
+                        <FaTelegramPlane className="commentButton"/>
                     </div>
-                )}
+                }
             </div>
             <div className="cardComments">
 

@@ -1,23 +1,23 @@
-
-
 .cardBody {
     width: calc(50% - 15px);
     border-radius: 20px;
-    background-color: #f2f2f2;
-    overflow: hidden;
     margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.20);
 }
 
 
 .cardImage {
     width: 100%;
+    border-radius: 20px 20px 0 0;
 }
 
 .cardContent {
     display: flex;
     justify-content: space-between;
-    padding: 10px 30px; 
+    padding: 10px 30px;
     user-select: none;
+    position: relative;
 }
 
 .like {
@@ -33,8 +33,53 @@
     background: linear-gradient(45deg, #FC5C7D, #6A82FB);
     padding: 0 40px;
     color: #fff;
-    font-size:  18px;
+    font-size: 18px;
     cursor: pointer;
+
 }
 
 
+.commentSection {
+    position: absolute;
+    bottom: 0;
+    transform: translateY(100%);
+    width: 90%;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.20);
+    border-radius: 0 0 20px 20px;
+    overflow: hidden;
+    padding: 5px 20px;
+    box-sizing: border-box;
+    background-color: #fff;
+    z-index: -100;
+    
+}
+
+.commentInput {
+    box-sizing: border-box;
+    width: calc(100% - 50px);
+    height: 50px;
+    border: none;
+    outline-style: none;
+    vertical-align: middle;
+    transition: 0.3s;
+    
+}
+
+.commentButton {
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: none;
+    cursor: pointer;
+    color: black;
+    vertical-align: middle;
+    background-color: #fff;
+    color: #737373;
+    transition: 0.3s;
+    
+}
+
+.commentButton:hover {
+    color: #6A82FB;
+}
