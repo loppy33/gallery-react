@@ -11,7 +11,6 @@ import { FaTelegramPlane } from 'react-icons/fa';
 
 // https://fontawesome.com/
 
-
 const CardItem = (props) => {
     const [likesCount, setLikesCount] = useState(props.likes)
     const [canLike, setCanLike] = useState(true)
@@ -79,21 +78,19 @@ const CardItem = (props) => {
                         setCanLike(true)
                         setLikesCount(state => state - 1);
                     }
-                    // setObjectState(state => ({...state, id: 1}))
-                    // console.log(objectState.id)
+
 
                 }}>
                     <p><FontAwesomeIcon icon={faHeart} color={canLike ? 'gray' : 'red'} /> Мне нравится: {likesCount}</p>
                 </div>
                 <button className="cardButton" onClick={handleCommentButtonClick}>Комментировать <img src={props.image} alt="" /></button>
 
-            </div>
-            <div className="commentSection" style={isCommenting ? { transform: "translateY(100%)" } : {}}>
-                <input className="commentInput" placeholder="Оставить комментарий"></input>
-                <FaTelegramPlane className="commentButton" />
-            </div>
-            <div className="cardComments">
-
+                <div className="commentSection" style={isCommenting ? { transform: "translateY(100%)" } : {}}>
+                    <input className="commentInput" placeholder="Оставить комментарий"></input>
+                    <FaTelegramPlane className="commentButton" />
+                </div>
+                {/* <div className="cardComments">
+            </div> */}
             </div>
         </div>
     );

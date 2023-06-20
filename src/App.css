@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
+* {
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
 .App {
   text-align: center;
   max-width: 1200px;

@@ -8,6 +8,12 @@ import Header from './components/header/header'
 function App() {
   const [cardsData, setCardsData] = useState(
     [{
+      img: 'https://images.pexels.com/photos/16664503/pexels-photo-16664503/free-photo-of-femme-eau-montagne-chapeau.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      likes: 51,
+      comments: null,
+      favorites: false,
+    },
+    {
       img: 'https://images.pexels.com/photos/268533/pexels-photo-268533.jpeg?cs=srgb&dl=pexels-pixabay-268533.jpg&fm=jpg',
       likes: 12,
       comments: null,

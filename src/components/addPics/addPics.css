@@ -5,8 +5,73 @@
     width: 100%;
     height: 100vh;
 
+
     background-color: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(25px);
     z-index: 10000;
 }
 
+.modalBody {
+    text-align: left;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #fff;
+    width: 35%;
+    height: 30%;
+    border-radius: 20px;
+    padding: 0 3%;
+}
+
+.modalTitle {
+    text-align: center;
+    font-size: 40px;
+}
+
+.modalText {
+    font-size: 20px;
+}
+
+.modalinput {
+    width: 100%;
+    height: 25px;
+    border-radius: 10px;
+    border: none;
+    background-color: #ddd;
+    margin-bottom: 20px;
+    
+}
+
+.modalCancel {
+    width: 25%;
+    height: 70px;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(32, 32, 32);
+    font-size: 20px;
+    transition: 0.3s;
+    margin-right: 5%;
+}
+
+.modalAdd {
+    width: 70%;
+    height: 70px;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(150deg, #a18cd1 0%, #fbc2eb 100%);
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+.modalAdd:active {
+    transform: scale(1.02);
+    
+}
+
+.modalCancel:active {
+    transform: scale(1.02);
+    
+}
