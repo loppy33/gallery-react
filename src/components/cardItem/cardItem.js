@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import MyImage from '../../assets/placeholder.png';
-import './cardItem.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FaTelegramPlane } from 'react-icons/fa';
+import MyImage from '../../assets/placeholder.png';
+import './cardItem.css';
 
 const CardItem = (props) => {
     const [likesCount, setLikesCount] = useState(props.likes);
@@ -12,24 +12,19 @@ const CardItem = (props) => {
     const [cardStyle, setCardStyle] = useState({});
 
     useEffect(() => {
+        let cardTimeout;
         if (isCommenting) {
-            const cardTimeout = setTimeout(() => {
+            cardTimeout = setTimeout(() => {
                 setCardStyle({});
             }, 3000);
-
-            return () => {
-                clearTimeout(cardTimeout);
-            };
         }
+
+        return () => {
+            clearTimeout(cardTimeout);
+        };
     }, [isCommenting]);
 
-    const imageHandler = () => {
-        if (props.image) {
-            return props.image;
-        } else {
-            return MyImage;
-        }
-    };
+    const imageHandler = () => props.image ? props.image : MyImage;
 
     const handleCommentButtonClick = () => {
         if (isCommenting) {
@@ -44,18 +39,10 @@ const CardItem = (props) => {
         <div className={`cardBody ${props.isVisible || props.initialVisible ? 'show' : '' }`} style={cardStyle} id={props.id}>
             <img src={imageHandler()} alt="" className="cardImage" />
             <div className="cardContent">
-                <div
-                    className="like"
-                    onClick={() => {
-                        if (canLike) {
-                            setCanLike(false);
-                            setLikesCount((state) => state + 1);
-                        } else {
-                            setCanLike(true);
-                            setLikesCount((state) => state - 1);
-                        }
-                    }}
-                >
+                <div className="like" onClick={() => {
+                    setCanLike(!canLike);
+                    setLikesCount(state => state + (canLike ? 1 : -1));
+                }}>
                     <p>
                         <FontAwesomeIcon icon={faHeart} color={canLike ? 'gray' : 'red'} /> Нравится: {likesCount}
                     </p>

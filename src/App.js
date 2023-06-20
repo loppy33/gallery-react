@@ -6,7 +6,7 @@ import Header from './components/header/header';
 
 const API_KEY = "vJZXoQSdIGFEHqC4ufZglpSUDZ9UtOIJJLvorxOA8C4OhhSDb8O82HNH";
 const PER_PAGE = 12;
-const THRESHOLD = 600; // Пороговое значение, чтобы определить, когда начинать загрузку новых изображений
+const THRESHOLD = 600;
 
 function App() {
   const [cardsData, setCardsData] = useState([]);
@@ -26,21 +26,25 @@ function App() {
   }, []);
 
   const loadMoreImages = useCallback(async () => {
-    const newPage = Math.floor(Math.random() * (1000 - 1) + 1);
-    console.log(newPage);
     try {
+      const newPage = Math.floor(Math.random() * 999) + 1;
       const url = `https://api.pexels.com/v1/curated?per_page=${PER_PAGE}&page=${newPage}`;
       const response = await fetch(url, {
         headers: {
           'Authorization': API_KEY,
-        }
+        },
       });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch images');
+      }
+
       const data = await response.json();
       const newCards = data.photos.map(photo => ({
         img: photo.src.large,
         likes: Math.floor(Math.random() * 10000),
         comments: null,
-        favorites: false
+        favorites: false,
       }));
 
       const uniqueNewCards = newCards.filter(newCard => {
@@ -50,21 +54,21 @@ function App() {
       setCardsData(prevData => [...prevData, ...uniqueNewCards]);
     } catch (error) {
       console.log(error);
-    } 
+    }
   }, [cardsData]);
 
   useEffect(() => {
-    const handleIntersection = (entries) => {
-      const target = entries[0];
-      if (target.isIntersecting) {
+    const handleIntersection = ([entry]) => {
+      const { isIntersecting } = entry;
+      if (isIntersecting) {
         loadMoreImages();
       }
     };
 
     const options = {
       root: null,
-      rootMargin: `${THRESHOLD}px`, // Добавляем пороговое значение к rootMargin
-      threshold: 0.1
+      rootMargin: `${THRESHOLD}px`,
+      threshold: 0,
     };
 
     const observer = new IntersectionObserver(handleIntersection, options);
@@ -81,16 +85,12 @@ function App() {
     };
   }, [loadMoreImages]);
 
-
-
   return (
     <div className="App">
-      {isModal && <AddPics setModal={setModal} handleCards={handleCards}></AddPics>}
-      <Header setModal={setModal}></Header>
-       
-          <GalleryList data={cardsData} />
-
-      <div ref={sentinelRef}></div> {/* Используем ref для элемента-стража */}
+      {isModal && <AddPics setModal={setModal} handleCards={handleCards} />}
+      <Header setModal={setModal} />
+      <GalleryList data={cardsData} />
+      <div ref={sentinelRef}></div>
     </div>
   );
 }
