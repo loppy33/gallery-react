@@ -7,7 +7,7 @@
 
 
     background-color: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(25px);
+    backdrop-filter: blur(2.5vh);
     z-index: 10000;
 }
 
@@ -26,43 +26,43 @@
 
 .modalTitle {
     text-align: center;
-    font-size: 40px;
+    font-size: 4vh;
 }
 
 .modalText {
-    font-size: 20px;
+    font-size: 2vh;
 }
 
 .modalinput {
     width: 100%;
-    height: 25px;
-    border-radius: 10px;
+    height: 2.5vh;
+    border-radius: 1vh;
     border: none;
     background-color: #ddd;
-    margin-bottom: 20px;
+    margin-bottom: 2vh;
     
 }
 
 .modalCancel {
     width: 25%;
-    height: 70px;
+    height: 7vh;
     color: #fff;
     border: none;
-    border-radius: 10px;
+    border-radius: 1vh;
     background-color: rgb(32, 32, 32);
-    font-size: 20px;
+    font-size: 2vh;
     transition: 0.3s;
     margin-right: 5%;
 }
 
 .modalAdd {
     width: 70%;
-    height: 70px;
+    height: 7vh;
     color: #fff;
     border: none;
-    border-radius: 10px;
+    border-radius: 1vh;
     background: linear-gradient(150deg, #a18cd1 0%, #fbc2eb 100%);
-    font-size: 20px;
+    font-size: 2vh;
     transition: 0.3s;
 }
 

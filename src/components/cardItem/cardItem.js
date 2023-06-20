@@ -99,4 +99,5 @@ const CardItem = (props) => {
 
 export default CardItem;
 
-// TODO Выровнить кнопку комментировать
+// TODO https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_element_scrollleft (прокрутка до конца экрана)
+// window.innerHeight - у всего экрана, у тега - element.offsetHeight

@@ -2,14 +2,14 @@
     display: flex;
     justify-content: space-between;
     /* Выравнивание вдоль основной оси флекс бокса */
-    padding: 0 10px 10px 10px;
+    padding: 0 1vh 1vh 1vh;
 
 }
 
 .header button {
-    padding: 20px 50px;
+    padding: 2vh 5vh;
     border: none;
-    border-radius: 0 0 20px 20px;
+    border-radius: 0 0 2vh 2vh;
     color: #fff;
     cursor: pointer;
     transition: 1s;
@@ -24,7 +24,7 @@
 }
 
 .header button:hover {
-    filter: drop-shadow(0 0 12px rgb(24, 24, 24));
+    filter: drop-shadow(0 0 1.2vh rgb(24, 24, 24));
 }
 
 .headerAdd {
