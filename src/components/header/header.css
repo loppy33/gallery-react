@@ -2,17 +2,17 @@
     display: flex;
     justify-content: space-between;
     /* Выравнивание вдоль основной оси флекс бокса */
-    padding: 10px;
+    padding: 0 10px 10px 10px;
 
 }
 
 .header button {
     padding: 20px 50px;
     border: none;
-    border-radius: 20px;
+    border-radius: 0 0 20px 20px;
     color: #fff;
     cursor: pointer;
-    transition: 0.5s;
+    transition: 1s;
 }
 
 .header button:active {
@@ -30,7 +30,7 @@
 .headerAdd {
     background: linear-gradient(
         45deg, 
-        rgb(202, 2, 126), 
+        rgb(50, 69, 77), 
         rgb(118, 20, 230)
     );
 } 
@@ -38,7 +38,7 @@
 .headerAdd:hover {
     background: linear-gradient(
         90deg, 
-        rgb(202, 2, 126), 
+        rgb(50, 69, 77), 
         rgb(118, 20, 230)
     );
 }
