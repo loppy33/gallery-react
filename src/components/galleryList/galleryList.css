@@ -5,9 +5,9 @@
     padding: 1vh;
 }
 
-@media (max-width: 1000px) { 
+@media (max-width: 1000px) {
     .cardsContainer {
-        width: calc(100% / 2); 
+        width: calc(100% / 2);
     }
 
     #thirdContainer {
@@ -15,5 +15,3 @@
 
     }
 }
-
-
