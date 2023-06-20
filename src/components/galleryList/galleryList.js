@@ -10,7 +10,7 @@ const GalleryList = (props) => {
         if (typeof (props.data[i + 1]) != "undefined") { col2.push(props.data[i + 1]) }
         if (typeof (props.data[i + 2]) != "undefined") { col3.push(props.data[i + 2]) }
     }
-    console.log(col1, col2, col3);
+
     return (
         <section className="galleryList">
             <div className="cardsContainer">
@@ -23,7 +23,7 @@ const GalleryList = (props) => {
                     col2.map((e, id) => (<CardItem image={e.img} likes={e.likes} key={id} id={id}></CardItem>))
                 }
             </div>
-            <div className="cardsContainer">
+            <div className="cardsContainer" id='thirdContainer'>
                 {
                     col3.map((e, id) => (<CardItem image={e.img} likes={e.likes} key={id} id={id}></CardItem>))
                 }

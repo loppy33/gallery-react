@@ -3,7 +3,6 @@
     justify-content: space-between;
     /* Выравнивание вдоль основной оси флекс бокса */
     padding: 0 1vh 1vh 1vh;
-
 }
 
 .header button {
@@ -12,35 +11,19 @@
     border-radius: 0 0 2vh 2vh;
     color: #fff;
     cursor: pointer;
-    transition: 1s;
-}
-
-.header button:active {
-    transform: scale(1.05);
+    transition: background-position 0.7s;
 }
 
 .headerFavorites {
-    background-color: rgb(27, 27, 27);
-}
-
-.header button:hover {
-    filter: drop-shadow(0 0 1.2vh rgb(24, 24, 24));
+    background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+    background-size: 200% 200%;
 }
 
 .headerAdd {
-    background: linear-gradient(
-        45deg, 
-        rgb(50, 69, 77), 
-        rgb(118, 20, 230)
-    );
-} 
-
-.headerAdd:hover {
-    background: linear-gradient(
-        90deg, 
-        rgb(50, 69, 77), 
-        rgb(118, 20, 230)
-    );
+    background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+    background-size: 200% 200%;
 }
 
-/* Сделать плавный двигающийся градиент!!! */
+.header button:hover {
+    background-position: 100% 100%;
+}

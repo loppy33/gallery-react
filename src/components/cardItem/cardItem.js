@@ -9,8 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FaTelegramPlane } from 'react-icons/fa';
 
-// https://fontawesome.com/
-
 const CardItem = (props) => {
     const [likesCount, setLikesCount] = useState(props.likes)
     const [canLike, setCanLike] = useState(true)
@@ -32,16 +30,6 @@ const CardItem = (props) => {
         }
     };
 
-
-    // внутри useState передается Initial State (Состояние при создании & Состояние при рендере) 
-
-    // const [objectState, setObjectState] = useState({
-    //     name: null,
-    //     id: 0,
-    // })
-
-
-
     function imageHedler() {
         if (props.image) {
             return props.image
@@ -51,18 +39,7 @@ const CardItem = (props) => {
         }
     }
 
-    // function evenHandler(id){
-    //     if(id % 2 === 0){
-    //         return {
-    //             // marginLeft: '0' 
-    //         };
-    //     };
-
-    // }
-
-
     return (
-        // style={evenHandler(props.id)}
         <div className="cardBody" style={cardStyle}>
             <img src={imageHedler()} alt="" className="cardImage" />
             <div className="cardContent">
@@ -81,7 +58,7 @@ const CardItem = (props) => {
 
 
                 }}>
-                    <p><FontAwesomeIcon icon={faHeart} color={canLike ? 'gray' : 'red'} /> Мне нравится: {likesCount}</p>
+                    <p><FontAwesomeIcon icon={faHeart} color={canLike ? 'gray' : 'red'} /> Нравится: {likesCount}</p>
                 </div>
                 <button className="cardButton" onClick={handleCommentButtonClick}>Комментировать <img src={props.image} alt="" /></button>
 
@@ -96,8 +73,4 @@ const CardItem = (props) => {
     );
 };
 
-
 export default CardItem;
-
-// TODO https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_element_scrollleft (прокрутка до конца экрана)
-// window.innerHeight - у всего экрана, у тега - element.offsetHeight

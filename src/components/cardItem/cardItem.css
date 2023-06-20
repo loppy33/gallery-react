@@ -13,8 +13,7 @@
 
 .cardImage {
     width: 100%;
-    max-height: 600px;
-    /* height: calc(100% - 75px); */
+    max-height: 60vh; /* Замените значение на процентное отношение от высоты экрана */
     object-fit: cover;
     border-radius: 2vh 2vh 0 0;
 }
@@ -110,4 +109,24 @@
 
 .commentButton:hover {
     color: #6A82FB;
+}
+
+@media (max-width: 1000px) {
+
+
+    .cardContent {
+        padding: 1vh 2vh;
+    }
+    
+    .cardContent p {
+        font-size: 1.6vh;
+    }
+
+    .cardButton {
+        padding: 0 2.2vh;
+        font-size: 1.6vh;
+    }
+    
+
+
 }
