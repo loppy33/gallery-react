@@ -3,6 +3,7 @@
     display: inline-block;
     vertical-align: top;
     padding: 1vh;
+    
 }
 
 @media (max-width: 1000px) {

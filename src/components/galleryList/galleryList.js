@@ -21,7 +21,7 @@ const GalleryList = (props) => {
                 key={id}
                 id={id + startIndex}
                 isVisible={visibleCards.includes((id + startIndex).toString())}
-                initialVisible={id < 3}
+                initialVisible={id < 1}
             />
         ));
     };
@@ -43,10 +43,6 @@ const GalleryList = (props) => {
             setVisibleCards(visibleCardIds);
         };
 
-        const initialVisibleCards = Array.from(document.querySelectorAll('.cardBody'))
-            .slice(0, 9)
-            .map((card) => card.id);
-        setVisibleCards(initialVisibleCards);
 
         window.addEventListener('scroll', handleScroll);
         return () => {

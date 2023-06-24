@@ -12,6 +12,8 @@ function App() {
   const [cardsData, setCardsData] = useState([]);
   const [isModal, setModal] = useState(false);
   const sentinelRef = useRef(null);
+  const [searchInput, setSearchInput] = useState({ query: '', page: 0 });
+  const [hasMoreImages, setHasMoreImages] = useState(true);
 
   const handleCards = useCallback((card) => {
     setCardsData(prevData => [
@@ -27,8 +29,15 @@ function App() {
 
   const loadMoreImages = useCallback(async () => {
     try {
+      let url;
       const newPage = Math.floor(Math.random() * 999) + 1;
-      const url = `https://api.pexels.com/v1/curated?per_page=${PER_PAGE}&page=${newPage}`;
+      if (searchInput.query.length === 0) {
+        url = `https://api.pexels.com/v1/curated?per_page=${PER_PAGE}&page=${newPage}`;
+      } else {
+        url = `https://api.pexels.com/v1/search?query=${searchInput.query}&per_page=${PER_PAGE}&page=${searchInput.page + 1}`
+        setSearchInput(prevSearchInput => ({ ...prevSearchInput, page: prevSearchInput.page + 1 }));
+      }
+      console.log(url);
       const response = await fetch(url, {
         headers: {
           'Authorization': API_KEY,
@@ -47,20 +56,29 @@ function App() {
         favorites: false,
       }));
 
-      const uniqueNewCards = newCards.filter(newCard => {
-        return !cardsData.some(existingCard => existingCard.img === newCard.img);
+      setCardsData(prevData => {
+        const uniqueNewCards = newCards.filter(newCard => {
+          return !prevData.some(existingCard => existingCard.img === newCard.img);
+        });
+  
+        const newData = [...prevData, ...uniqueNewCards];
+        return newData;
       });
 
-      setCardsData(prevData => [...prevData, ...uniqueNewCards]);
+      if (data.photos.length < PER_PAGE) {
+        setHasMoreImages(false);
+      }
+      
     } catch (error) {
       console.log(error);
     }
+    // eslint-disable-next-line
   }, [cardsData]);
 
   useEffect(() => {
     const handleIntersection = ([entry]) => {
       const { isIntersecting } = entry;
-      if (isIntersecting) {
+      if (isIntersecting && hasMoreImages) {
         loadMoreImages();
       }
     };
@@ -83,13 +101,28 @@ function App() {
         observer.unobserve(sentinel);
       }
     };
+    // eslint-disable-next-line
   }, [loadMoreImages]);
+
+  useEffect(() => {
+    const storeData = localStorage.getItem('cardsData');
+    if (storeData) {
+      setCardsData(JSON.parse(storeData))
+    }
+  }, []);
+
+  useEffect(() => {
+    // Сохранение при обновлении cardsData
+    localStorage.setItem('cardsData', JSON.stringify(cardsData));
+  }, [cardsData])
 
   return (
     <div className="App">
       {isModal && <AddPics setModal={setModal} handleCards={handleCards} />}
-      <Header setModal={setModal} />
-      <GalleryList data={cardsData} />
+      <Header setModal={setModal} loadMoreImages={loadMoreImages} setSearchInput={setSearchInput} setCardsData={setCardsData} setHasMoreImages={setHasMoreImages} />
+      <div className="gallery-list">
+        <GalleryList data={cardsData} />
+      </div>
       <div ref={sentinelRef}></div>
     </div>
   );
