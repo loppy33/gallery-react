@@ -34,7 +34,7 @@ function App() {
       if (searchInput.query.length === 0) {
         url = `https://api.pexels.com/v1/curated?per_page=${PER_PAGE}&page=${newPage}`;
       } else {
-        url = `https://api.pexels.com/v1/search?query=${searchInput.query}&per_page=${PER_PAGE}&page=${searchInput.page + 1}`
+        url = `https://api.pexels.com/v1/search?query=${searchInput.query}&per_page=${PER_PAGE}&page=${searchInput.page + 1}`;
         setSearchInput(prevSearchInput => ({ ...prevSearchInput, page: prevSearchInput.page + 1 }));
       }
       console.log(url);
@@ -57,28 +57,29 @@ function App() {
       }));
 
       setCardsData(prevData => {
-        const uniqueNewCards = newCards.filter(newCard => {
-          return !prevData.some(existingCard => existingCard.img === newCard.img);
-        });
-  
+        const existingImages = new Set(prevData.map(card => card.img));
+        const uniqueNewCards = newCards.filter(newCard => !existingImages.has(newCard.img));
         const newData = [...prevData, ...uniqueNewCards];
         return newData;
       });
 
       if (data.photos.length < PER_PAGE) {
         setHasMoreImages(false);
+
+      } else {
+        setHasMoreImages(true);
       }
-      
     } catch (error) {
       console.log(error);
     }
     // eslint-disable-next-line
-  }, [cardsData]);
+  }, [cardsData, hasMoreImages]);
 
   useEffect(() => {
     const handleIntersection = ([entry]) => {
       const { isIntersecting } = entry;
       if (isIntersecting && hasMoreImages) {
+        console.log(hasMoreImages);
         loadMoreImages();
       }
     };
@@ -102,19 +103,19 @@ function App() {
       }
     };
     // eslint-disable-next-line
-  }, [loadMoreImages]);
+  }, [cardsData]);
 
   useEffect(() => {
     const storeData = localStorage.getItem('cardsData');
     if (storeData) {
-      setCardsData(JSON.parse(storeData))
+      setCardsData(JSON.parse(storeData));
     }
   }, []);
 
   useEffect(() => {
     // Сохранение при обновлении cardsData
     localStorage.setItem('cardsData', JSON.stringify(cardsData));
-  }, [cardsData])
+  }, [cardsData]);
 
   return (
     <div className="App">
@@ -122,6 +123,7 @@ function App() {
       <Header setModal={setModal} loadMoreImages={loadMoreImages} setSearchInput={setSearchInput} setCardsData={setCardsData} setHasMoreImages={setHasMoreImages} />
       <div className="gallery-list">
         <GalleryList data={cardsData} />
+        <img src="https://cdn.pixabay.com/animation/2022/10/11/03/16/03-16-39-160_512.gif" alt="" className="loading" />
       </div>
       <div ref={sentinelRef}></div>
     </div>
