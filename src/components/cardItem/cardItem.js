@@ -56,7 +56,7 @@ const CardItem = (props) => {
                     </p>
                 </div>
                 <button className="cardButton" onClick={handleCommentButtonClick}>
-                    Комментировать <img src={props.image} alt="" />
+                    Комментировать <img src={imageHandler()} alt="" />
                 </button>
                 <div className="commentSection" style={isCommenting ? { transform: 'translateY(100%)' } : {}}>
                     <input className="commentInput" placeholder="Оставить комментарий" />

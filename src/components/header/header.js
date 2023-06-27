@@ -1,9 +1,9 @@
 import './header.css';
-import Backgroudnd from '../../assets/placeholder.png';
+import Backgroudnd from '../../assets/placehold.png';
 import Avatar from '../../assets/avatar.png';
 
 import { LuBell } from 'react-icons/lu';
-import { AiFillMessage, AiOutlineSearch } from 'react-icons/ai';
+import { AiFillMessage, AiOutlineSearch, AiOutlineZoomIn, AiOutlineZoomOut } from 'react-icons/ai';
 
 import { BiImageAlt } from 'react-icons/bi';
 
@@ -18,7 +18,6 @@ const Header = (props) => {
     const searchInputRef = useRef(null);
 
     const toggleOptions = () => {
-        console.log(isOptionsOpen);
         setIsOptionsOpen(!isOptionsOpen);
     };
 
@@ -32,14 +31,14 @@ const Header = (props) => {
 
     const parallaxEffect = () => {
         const background = document.querySelector('.background');
-      
+
         window.addEventListener('scroll', () => {
-          const scrollPosition = window.pageYOffset;
-          const parallaxValue = scrollPosition * 0.4;
-      
-          background.style.transform = `translateY(-${parallaxValue}px)`;
+            const scrollPosition = window.pageYOffset;
+            const parallaxValue = scrollPosition * 0.4;
+
+            background.style.transform = `translateY(-${parallaxValue}px)`;
         });
-      };
+    };
     useEffect(() => {
         parallaxEffect();
     }, []);
@@ -83,6 +82,10 @@ const Header = (props) => {
                     </div>
                 </div>
                 <img className='background' src={Backgroudnd} alt="" />
+            </div>
+            <div className="filters">
+                <a href="#/" className='zoomButton'><AiOutlineZoomOut /></a>
+                <a href="#/" className='zoomButton'><AiOutlineZoomIn /></a>
             </div>
         </div>
     );

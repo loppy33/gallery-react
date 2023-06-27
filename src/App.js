@@ -42,12 +42,12 @@ function App() {
           'Authorization': API_KEY,
         },
       });
-
       if (!response.ok) {
         throw new Error('Failed to fetch images');
       }
 
       const data = await response.json();
+      console.log(data);
       const newCards = data.photos.map(photo => ({
         img: photo.src.large,
         likes: Math.floor(Math.random() * 10000),
@@ -129,3 +129,5 @@ function App() {
 }
 
 export default App;
+
+// TODO 

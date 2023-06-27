@@ -2,13 +2,13 @@
     position: relative;
     display: grid;
     width: 100%;
-    border-radius: 2vh;
+    border-radius: 1vh;
     margin-bottom: 2vh;
     background-color: #ffffff;
     box-shadow: 0 0 4vh rgba(0, 0, 0, 0.20);
     opacity: 0;
     transition: opacity 1s ease-in-out;
-    transition: 0.3s;
+    transition: 1s;
     
 }
 
@@ -57,7 +57,7 @@
     max-height: 60vh;
     /* Замените значение на процентное отношение от высоты экрана */
     object-fit: cover;
-    border-radius: 2vh 2vh 0 0;
+    border-radius: 1vh 1vh 0 0;
     transition: 0.3s;
 }
 
@@ -70,7 +70,7 @@
     user-select: none;
     position: relative;
     background-color: #fff;
-    border-radius: 0 0 2vh 2vh;
+    border-radius: 0 0 1vh 1vh;
     box-shadow: 0 0 4vh rgba(0, 0, 0, 0.20);
 }
 

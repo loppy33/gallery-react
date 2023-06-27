@@ -11,9 +11,13 @@ body {
 }
 
 input,
-button,
+button {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
 a {
   font-family: 'Plus Jakarta Sans', sans-serif;
+  display: inline-block;
 }
 
 
