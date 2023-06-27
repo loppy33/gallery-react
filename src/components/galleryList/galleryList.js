@@ -4,6 +4,7 @@ import './galleryList.css';
 
 const GalleryList = (props) => {
     const [visibleCards, setVisibleCards] = useState([]);
+    const [colsNumber, setColsNumber] = useState(3)
 
     const { data } = props;
 
@@ -13,14 +14,14 @@ const GalleryList = (props) => {
         return cols;
     }, [[], [], []]);
 
-    const generateCardItems = (col, startIndex) => {
+    const generateCardItems = (col) => {
         return col.map((e, id) => (
             <CardItem
                 image={e.img}
                 likes={e.likes}
                 key={id}
-                id={id + startIndex}
-                isVisible={visibleCards.includes((id + startIndex).toString())}
+                id={id}
+                isVisible={visibleCards.includes((id).toString())}
                 initialVisible={id < 1}
             />
         ));
@@ -52,14 +53,15 @@ const GalleryList = (props) => {
 
     return (
         <section className="galleryList">
+            
             <div className="cardsContainer">
-                {generateCardItems(col1, 0)}
+                {generateCardItems(col1)}
             </div>
             <div className="cardsContainer">
-                {generateCardItems(col2, col1.length)}
+                {generateCardItems(col2)}
             </div>
             <div className="cardsContainer" id="thirdContainer">
-                {generateCardItems(col3, col1.length + col2.length)}
+                {generateCardItems(col3)}
             </div>
         </section>
     );
