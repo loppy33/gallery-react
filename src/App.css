@@ -24,9 +24,10 @@ a {
   display: flex;
   flex-direction: column;
   margin: auto;
+  
 }
 
 .loading {
   width: 10vh;
-  margin: 2vh auto;
+  margin: auto;
 }

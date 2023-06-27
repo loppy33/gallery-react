@@ -4,6 +4,7 @@ import Avatar from '../../assets/avatar.png';
 
 import { LuBell } from 'react-icons/lu';
 import { AiFillMessage, AiOutlineSearch } from 'react-icons/ai';
+
 import { BiImageAlt } from 'react-icons/bi';
 
 import { BsStar } from 'react-icons/bs';
@@ -83,11 +84,6 @@ const Header = (props) => {
                 </div>
                 <img className='background' src={Backgroudnd} alt="" />
             </div>
-            {/* <div className="filters">
-
-                    Фильтры
-                    <a href="#/">Только избраное</a>
-            </div> */}
         </div>
     );
 };

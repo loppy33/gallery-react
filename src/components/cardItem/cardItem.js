@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FaTelegramPlane } from 'react-icons/fa';
+
+import { LuDownload } from 'react-icons/lu';
+import { BsStar } from 'react-icons/bs';
+
 import MyImage from '../../assets/placeholder.png';
 import './cardItem.css';
 
@@ -37,6 +41,10 @@ const CardItem = (props) => {
 
     return (
         <div className={`cardBody ${props.isVisible || props.initialVisible ? 'show' : '' }`} style={cardStyle} id={props.id}>
+            <div className="buttonsImage">
+                <BsStar className='buttonImage favorite'/>
+                <LuDownload  className='buttonImage download'/>
+            </div>
             <img src={imageHandler()} alt="" className="cardImage" />
             <div className="cardContent">
                 <div className="like" onClick={() => {

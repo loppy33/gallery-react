@@ -37,7 +37,6 @@ function App() {
         url = `https://api.pexels.com/v1/search?query=${searchInput.query}&per_page=${PER_PAGE}&page=${searchInput.page + 1}`;
         setSearchInput(prevSearchInput => ({ ...prevSearchInput, page: prevSearchInput.page + 1 }));
       }
-      console.log(url);
       const response = await fetch(url, {
         headers: {
           'Authorization': API_KEY,
@@ -79,7 +78,6 @@ function App() {
     const handleIntersection = ([entry]) => {
       const { isIntersecting } = entry;
       if (isIntersecting && hasMoreImages) {
-        console.log(hasMoreImages);
         loadMoreImages();
       }
     };
