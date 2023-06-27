@@ -1,0 +1,79 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+
+
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(2.5vh);
+    z-index: 10000;
+}
+
+.modalBody {
+    text-align: left;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #fff;
+    width: 70vh;
+    height: 30vh;
+    border-radius: 20px;
+    padding: 0 3%;
+}
+
+.modalTitle {
+    text-align: center;
+    font-size: 3.5vh;
+}
+
+.modalText {
+    font-size: 2vh;
+}
+
+.modalinput {
+    width: 100%;
+    height: 4vh;
+    border-radius: 1vh;
+    border: none;
+    background-color: #ddd;
+    margin-bottom: 1vh;
+    padding: 1vh;
+}
+
+.modalCancel {
+    width: 25%;
+    height: 7vh;
+    color: #fff;
+    border: none;
+    border-radius: 1vh;
+    background-color: rgb(32, 32, 32);
+    font-size: 2vh;
+    transition: 0.3s;
+    margin-right: 5%;
+    cursor: pointer;
+}
+
+.modalAdd {
+    width: 70%;
+    height: 7vh;
+    color: #fff;
+    border: none;
+    border-radius: 1vh;
+    background: linear-gradient(150deg, #a18cd1 0%, #fbc2eb 100%);
+    font-size: 2vh;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.modalAdd:active {
+    transform: scale(1.02);
+    
+}
+
+.modalCancel:active {
+    transform: scale(1.02);
+    
+}

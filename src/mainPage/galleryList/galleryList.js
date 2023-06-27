@@ -1,0 +1,83 @@
+import React, { useState, useEffect } from 'react';
+import CardItem from '../cardItem/cardItem';
+import './galleryList.css';
+
+const GalleryList = (props) => {
+    const [visibleCards, setVisibleCards] = useState([]);
+
+    const { data } = props;
+    const colsNumber = props.colsNumber;
+
+    const cols = Array.from({ length: colsNumber }, () => []);
+
+    data.forEach((item, index) => {
+        const colIndex = index % colsNumber;
+        cols[colIndex].push(item);
+    });
+
+
+
+    const generateCardItems = (col) => {
+        return col.map((e, id) => (
+            <CardItem
+                image={e.img}
+                likes={e.likes}
+                key={id}
+                id={id}
+                isVisible={visibleCards.includes(id.toString())}
+                initialVisible={id < 1}
+            />
+        ));
+    };
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const cards = document.querySelectorAll('.cardBody');
+            const windowHeight = window.innerHeight;
+
+            const visibleCardIds = [];
+            cards.forEach((card) => {
+                const cardTop = card.getBoundingClientRect().top;
+
+                if (cardTop < windowHeight) {
+                    visibleCardIds.push(card.id);
+                }
+            });
+
+            setVisibleCards(visibleCardIds);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    function manageWidhth(colsNumber) {
+        if(colsNumber === 2) {
+            return colsNumber * 2
+        } 
+        else if(colsNumber === 3) {
+            return colsNumber + 1
+        } 
+        else {
+            return colsNumber
+        }
+
+
+    } 
+
+    return (
+        <div className="galleryList">
+            {cols.map((col, index) => (
+                <div className="cardsContainer" key={index} style={
+                    { width: `calc(100% / ${manageWidhth(colsNumber)})` }
+                }>
+                    {generateCardItems(col)}
+                </div>
+            ))}
+        </div>
+    );
+};
+
+export default GalleryList;
