@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BiComment } from 'react-icons/bi';
-
 import { FaTelegramPlane } from 'react-icons/fa';
-
 import { LuDownload } from 'react-icons/lu';
 import { BsStar } from 'react-icons/bs';
 
@@ -16,21 +14,20 @@ const CardItem = (props) => {
     const [canLike, setCanLike] = useState(true);
     const [isCommenting, setIsCommenting] = useState(false);
     const [cardStyle, setCardStyle] = useState({});
+    const [isImageLoaded, setIsImageLoaded] = useState(false); // Состояние загрузки изображения
 
     useEffect(() => {
         let cardTimeout;
-        if (isCommenting) {
+        if (!isCommenting) {
             cardTimeout = setTimeout(() => {
                 setCardStyle({});
             }, 3000);
+            return () => {
+                clearTimeout(cardTimeout);
+            };
         }
 
-        return () => {
-            clearTimeout(cardTimeout);
-        };
     }, [isCommenting]);
-
-    const imageHandler = () => props.image ? props.image : MyImage;
 
     const handleCommentButtonClick = () => {
         if (isCommenting) {
@@ -41,31 +38,42 @@ const CardItem = (props) => {
         }
     };
 
+    const imageHandler = () => (props.image ? props.image : MyImage);
+
+    const handleImageLoad = () => {
+        setIsImageLoaded(true);
+    };
+
     return (
-        <div className={`cardBody ${props.isVisible || props.initialVisible ? 'show' : ''}`} style={cardStyle} id={props.id}>
+        <div
+            className={`cardBody ${(props.isVisible || props.initialVisible) && isImageLoaded ? 'show' : '' // Показывать cardBody только после полной загрузки изображения
+                }`}
+            style={cardStyle}
+            id={props.id}
+        >
             <div className="buttonsImage">
                 <div className="first">
-
-                    <BsStar className='buttonImage favorite' />
-                    <LuDownload className='buttonImage download' />
+                    <BsStar className="buttonImage favorite" />
+                    <LuDownload className="buttonImage download" />
                 </div>
-
                 <div className="second">
-                    <AiOutlineHeart className="buttonImage like" color={canLike ? 'gray' : 'red'} onClick={() => {
-                        setCanLike(!canLike);
-                        setLikesCount(state => state + (canLike ? 1 : -1));
-                    }} />
+                    <AiOutlineHeart
+                        className="buttonImage like"
+                        color={canLike ? 'gray' : 'red'}
+                        onClick={() => {
+                            setCanLike(!canLike);
+                            setLikesCount((state) => state + (canLike ? 1 : -1));
+                        }}
+                    />
                     <BiComment className="buttonImage comment" onClick={handleCommentButtonClick} />
                 </div>
             </div>
-
-
             <div className="commentSection" style={isCommenting ? { transform: 'translateY(100%)' } : {}}>
                 <input className="commentInput" placeholder="Оставить комментарий" />
                 <FaTelegramPlane className="commentButton" />
             </div>
-            <img src={imageHandler()} alt="" className="cardImage" />
-        </div >
+            <img src={imageHandler()} alt="" className="cardImage" onLoad={handleImageLoad} />
+        </div>
     );
 };
 

@@ -86,7 +86,7 @@ const Header = (props) => {
             <div className="filters">
                 <div className="zoom">
                     <a href="#/" className='zoomButton' onClick={() => props.setColsNumber(colsNumber => colsNumber > 1 ? colsNumber - 1 : colsNumber)}><AiOutlineZoomOut /></a>
-                    <a href="#/" className='zoomButton' onClick={() => props.setColsNumber(colsNumber => colsNumber < 5 ? colsNumber + 1 : colsNumber)}><AiOutlineZoomIn /></a>
+                    <a href="#/" className='zoomButton' onClick={() => props.setColsNumber(colsNumber => colsNumber < 10 ? colsNumber + 1 : colsNumber)}><AiOutlineZoomIn /></a>
                 </div>
             </div>
         </div>

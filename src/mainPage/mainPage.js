@@ -31,6 +31,7 @@ function MainPage() {
 
   const loadMoreImages = useCallback(async () => {
     try {
+
       const data = await getImages(PER_PAGE * colsNumber, searchInput, setSearchInput)
 
       const newCards = data.photos.map(photo => ({
@@ -54,6 +55,7 @@ function MainPage() {
       } else {
         setHasMoreImages(true);
       }
+
     } catch (error) {
       console.log(error);
     }
@@ -66,18 +68,23 @@ function MainPage() {
       console.log(isIntersecting, hasMoreImages);
       if (isIntersecting && hasMoreImages) {
         loadMoreImages();
-      } else if (!hasMoreImages) {
-        console.log('тут типа запуск повторной попытки через...');
-        setTimeout(() => {
+      } else if (!hasMoreImages && isIntersecting) {
+        console.log('Запуск повторной попытки поиска изображений...');
+
+        const retryTimeout = setTimeout(() => {
           setHasMoreImages(true);
           loadMoreImages();
-        }, 1000)
+        }, 3000);
+
+        return () => {
+          clearTimeout(retryTimeout);
+        };
       }
     };
 
     const options = {
       root: null,
-      rootMargin: `600px`,
+      rootMargin: `50px`,
       threshold: 0,
     };
 
@@ -106,7 +113,7 @@ function MainPage() {
   useEffect(() => {
     // Сохранение при обновлении cardsData
     localStorage.setItem('cardsData', JSON.stringify(cardsData));
-  }, [cardsData]);
+  }, [cardsData, colsNumber]);
 
   return (
     <div className="mainPage">
@@ -125,7 +132,7 @@ function MainPage() {
         <GalleryList data={cardsData} colsNumber={colsNumber} />
         <img src="https://cdn.pixabay.com/animation/2022/10/11/03/16/03-16-39-160_512.gif" alt="" className="loading" />
       </div>
-      
+
       <div ref={sentinelRef}></div>
     </div>
   );

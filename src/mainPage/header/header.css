@@ -21,6 +21,7 @@
 
     object-fit: cover;
     opacity: .5;
+    transition: 0.1s;
 }
 
 .staticInteractiv {
