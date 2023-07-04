@@ -11,10 +11,13 @@ import './cardItem.css';
 const CardItem = (props) => {
     // eslint-disable-next-line
     const [likesCount, setLikesCount] = useState(props.likes);
+    const [canFavorites, setCanFavorites] = useState(props.favorites)
     const [canLike, setCanLike] = useState(true);
+
     const [isCommenting, setIsCommenting] = useState(false);
     const [cardStyle, setCardStyle] = useState({});
     const [isImageLoaded, setIsImageLoaded] = useState(false); // Состояние загрузки изображения
+
 
     useEffect(() => {
         let cardTimeout;
@@ -50,10 +53,19 @@ const CardItem = (props) => {
                 }`}
             style={cardStyle}
             id={props.id}
+            key={props.id}
         >
             <div className="buttonsImage">
                 <div className="first">
-                    <BsStar className="buttonImage favorite" />
+                    <BsStar className="buttonImage favorite"
+                        color={props.favorites ? '#fdd910' : 'gray'}
+                        onClick={() => {
+                            console.log(props.favorites);
+                            setCanFavorites(!canFavorites);
+                            props.addFavorites(props.id)
+                            // props.setCardsData()
+
+                        }} />
                     <LuDownload className="buttonImage download" />
                 </div>
                 <div className="second">

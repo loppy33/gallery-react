@@ -11,15 +11,17 @@ const PER_PAGE = 4;
 function MainPage() {
   const [cardsData, setCardsData] = useState([]);
   const [isModal, setModal] = useState(false);
+  const [onlyFavorite, setOnlyFavorite] = useState(false)
   const sentinelRef = useRef(null);
   const [searchInput, setSearchInput] = useState({ query: '', page: 0 });
   const [hasMoreImages, setHasMoreImages] = useState(true);
 
   const [colsNumber, setColsNumber] = useState(3)
 
-  const handleCards = useCallback((card) => {
+  const handleCards = useCallback((id, card) => {
     setCardsData(prevData => [
       {
+        id: id,
         img: card,
         likes: 0,
         comments: null,
@@ -31,10 +33,22 @@ function MainPage() {
 
   const loadMoreImages = useCallback(async () => {
     try {
+      let data = [];
 
-      const data = await getImages(PER_PAGE * colsNumber, searchInput, setSearchInput)
+      if (onlyFavorite) {
+
+        cardsData.forEach(async (card) => {
+          if (card.favorites) {
+            data.push(await getImages(PER_PAGE * colsNumber, searchInput, setSearchInput, card.id))
+          }
+        })
+
+      } else {
+        data = await getImages(PER_PAGE * colsNumber, searchInput, setSearchInput)
+      }
 
       const newCards = data.photos.map(photo => ({
+        id: photo.id,
         img: photo.src.large,
         likes: Math.floor(Math.random() * 10000),
         comments: null,
@@ -65,10 +79,11 @@ function MainPage() {
   useEffect(() => {
     const handleIntersection = ([entry]) => {
       const { isIntersecting } = entry;
-      console.log(isIntersecting, hasMoreImages);
-      if (isIntersecting && hasMoreImages) {
+      console.log(isIntersecting, hasMoreImages, onlyFavorite);
+
+      if (isIntersecting && hasMoreImages && !onlyFavorite) {
         loadMoreImages();
-      } else if (!hasMoreImages && isIntersecting) {
+      } else if (!hasMoreImages && isIntersecting && !onlyFavorite) {
         console.log('Запуск повторной попытки поиска изображений...');
 
         const retryTimeout = setTimeout(() => {
@@ -115,6 +130,13 @@ function MainPage() {
     localStorage.setItem('cardsData', JSON.stringify(cardsData));
   }, [cardsData, colsNumber]);
 
+  function addFavorites(id) {
+    let newCardsData = cardsData;
+    newCardsData[id].favorites = true
+    setCardsData(newCardsData)
+    // console.log(cardsData);
+  }
+
   return (
     <div className="mainPage">
       {isModal && <AddPics setModal={setModal} handleCards={handleCards} />}
@@ -126,10 +148,12 @@ function MainPage() {
         setCardsData={setCardsData}
         setHasMoreImages={setHasMoreImages}
         setColsNumber={setColsNumber}
+        setOnlyFavorite={setOnlyFavorite}
+        onlyFavorite={onlyFavorite}
       />
 
       <div className="gallery-list">
-        <GalleryList data={cardsData} colsNumber={colsNumber} />
+        <GalleryList data={cardsData} colsNumber={colsNumber} setCardsData={setCardsData} onlyFavorite={onlyFavorite} addFavorites={addFavorites} />
         <img src="https://cdn.pixabay.com/animation/2022/10/11/03/16/03-16-39-160_512.gif" alt="" className="loading" />
       </div>
 

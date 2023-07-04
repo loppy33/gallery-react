@@ -11,21 +11,26 @@ const GalleryList = (props) => {
     const cols = Array.from({ length: colsNumber }, () => []);
 
     data.forEach((item, index) => {
+        console.log(item.favorites);
+        if (props.onlyFavorite && !item.favorites) {
+            return;
+        }
         const colIndex = index % colsNumber;
         cols[colIndex].push(item);
     });
-
-
 
     const generateCardItems = (col) => {
         return col.map((e, id) => (
             <CardItem
                 image={e.img}
                 likes={e.likes}
+                favorites={e.favorites}
                 key={id}
                 id={id}
                 isVisible={visibleCards.includes(id.toString())}
                 initialVisible={id < 1}
+                setCardsData={props.setCardsData}
+                addFavorites={props.addFavorites}
             />
         ));
     };
@@ -53,25 +58,23 @@ const GalleryList = (props) => {
         };
     }, []);
 
-    function manageWidhth(colsNumber) {
-        if(colsNumber === 2) {
+    function manageWidth(colsNumber) {
+        if (colsNumber === 2) {
             return colsNumber * 2
-        } 
-        else if(colsNumber === 3) {
+        }
+        else if (colsNumber === 3) {
             return colsNumber + 1
-        } 
+        }
         else {
             return colsNumber
         }
-
-
-    } 
+    }
 
     return (
         <div className="galleryList">
             {cols.map((col, index) => (
                 <div className="cardsContainer" key={index} style={
-                    { width: `calc(100% / ${manageWidhth(colsNumber)})` }
+                    { width: `calc(100% / ${manageWidth(colsNumber)})` }
                 }>
                     {generateCardItems(col)}
                 </div>

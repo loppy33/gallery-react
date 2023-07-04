@@ -8,17 +8,17 @@ import { AiFillMessage, AiOutlineSearch, AiOutlineZoomIn, AiOutlineZoomOut } fro
 import { BiImageAlt } from 'react-icons/bi';
 
 import { BsStar } from 'react-icons/bs';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 
 import '@fortawesome/fontawesome-free/css/all.css';
 
 
 const Header = (props) => {
-    const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+    // const [isOptionsOpen, setIsOptionsOpen] = useState(false);
     const searchInputRef = useRef(null);
 
     const toggleOptions = () => {
-        setIsOptionsOpen(!isOptionsOpen);
+        props.setOnlyFavorite(!props.onlyFavorite);
     };
 
     const handleSearch = (event) => {
@@ -65,7 +65,7 @@ const Header = (props) => {
                                 <span className="icon"><BiImageAlt /></span>
                                 <span className="text">Все фото</span>
                             </div>
-                            {isOptionsOpen && (
+                            {props.onlyFavorite && (
                                 <div className="selectedOption">
                                     <span className="icon"><BsStar /></span>
                                     <span className="text">Избранное</span>

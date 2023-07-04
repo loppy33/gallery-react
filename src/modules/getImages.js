@@ -1,10 +1,11 @@
 const API_KEY = "vJZXoQSdIGFEHqC4ufZglpSUDZ9UtOIJJLvorxOA8C4OhhSDb8O82HNH";
 
-async function getImages(PER_PAGE, searchInput, setSearchInput) {
+async function getImages(PER_PAGE, searchInput, setSearchInput, favoriteId) {
   try {
     const newPage = Math.floor(Math.random() * 999) + 1;
     const page = searchInput.query.length === 0 ? newPage : searchInput.page + 1;
-    const url = generateImageUrl(PER_PAGE, page, searchInput.query);
+
+    const url = generateImageUrl(PER_PAGE, page, searchInput.query, favoriteId);
 
     const response = await fetch(url, {
       headers: {
@@ -33,11 +34,14 @@ async function getImages(PER_PAGE, searchInput, setSearchInput) {
   }
 }
 
-function generateImageUrl(PER_PAGE, page, query) {
+function generateImageUrl(PER_PAGE, page, query, favoriteId) {
   const baseUrl = query.length === 0 ? 'https://api.pexels.com/v1/curated' : 'https://api.pexels.com/v1/search';
   const url = new URL(baseUrl);
   url.searchParams.append('per_page', PER_PAGE);
   url.searchParams.append('page', page);
+  if (favoriteId) {
+    url.searchParams.append('photos', favoriteId)
+  }
   if (query.length > 0) {
     url.searchParams.append('query', query);
   }
