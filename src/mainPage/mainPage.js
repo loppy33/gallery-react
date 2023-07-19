@@ -18,7 +18,7 @@ function MainPage() {
 
   const [colsNumber, setColsNumber] = useState(3)
 
-  const handleCards = useCallback((id, card) => {
+  const handleCards = useCallback((id, card, alt) => {
     setCardsData(prevData => [
       {
         id: id,
@@ -26,6 +26,7 @@ function MainPage() {
         likes: 0,
         comments: null,
         favorites: false,
+        alt: alt,
       },
       ...prevData
     ]);
@@ -53,6 +54,7 @@ function MainPage() {
         likes: Math.floor(Math.random() * 10000),
         comments: null,
         favorites: false,
+        alt: photo.alt,
       }));
 
       setCardsData(prevData => {
@@ -130,11 +132,16 @@ function MainPage() {
     localStorage.setItem('cardsData', JSON.stringify(cardsData));
   }, [cardsData, colsNumber]);
 
+
+
   function addFavorites(id) {
-    let newCardsData = cardsData;
-    newCardsData[id].favorites = true
+    let newCardsData = cardsData.slice();
+    let favoriteImage = newCardsData.find(el => el['id'] === id)
+
+    console.log(favoriteImage);
+
+    favoriteImage.favorites = !favoriteImage.favorites
     setCardsData(newCardsData)
-    // console.log(cardsData);
   }
 
   return (
@@ -154,7 +161,8 @@ function MainPage() {
 
       <div className="gallery-list">
         <GalleryList data={cardsData} colsNumber={colsNumber} setCardsData={setCardsData} onlyFavorite={onlyFavorite} addFavorites={addFavorites} />
-        <img src="https://cdn.pixabay.com/animation/2022/10/11/03/16/03-16-39-160_512.gif" alt="" className="loading" />
+        {!onlyFavorite ? <img src="https://cdn.pixabay.com/animation/2022/10/11/03/16/03-16-39-160_512.gif" alt="" className="loading" /> : ''}
+
       </div>
 
       <div ref={sentinelRef}></div>
@@ -164,3 +172,4 @@ function MainPage() {
 
 export default MainPage;
 
+// TODO сделать сохранения избранных

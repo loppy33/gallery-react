@@ -180,19 +180,58 @@
 
 .filters a svg {
     display: block;
+    height: 40px;
 }
 
 .zoom {
-    border: 0.1vh solid #00000020;
+    border: 1px solid #00000020;
     border-radius: 1vh;
     width: 10vh;
-    padding: 0.3vh;
+    /* padding: 0.3vh; */
     text-align: center;
-    
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .zoom .zoomButton {
     transform: translateY(10%);
     padding: 0 0.5vh;
     
+}
+
+.orientation ul {
+    transition: 0.3s;
+    opacity: 0;
+    pointer-events: none;
+
+    list-style: none;
+    position: absolute;
+    z-index: 1;
+    background-color: #fff;
+    border-radius: 1vh;
+    font-size: 2.5vh;
+    padding: 1vh;
+    top: 5vh;
+}
+
+.orientation ul a {
+    border: none;
+    
+}
+
+.orientation {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 1vh;
+}
+
+.orientation a {
+    text-decoration: none;
+    line-height: 40px;
+    border: 1px solid #00000020;
+    border-radius: 1vh;
+    font-size: 3vh;
+    padding: 0 0.5vh;
+    display: block;
 }

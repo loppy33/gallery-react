@@ -44,6 +44,7 @@ const CardItem = (props) => {
     const imageHandler = () => (props.image ? props.image : MyImage);
 
     const handleImageLoad = () => {
+        console.log(123);
         setIsImageLoaded(true);
     };
 
@@ -60,7 +61,7 @@ const CardItem = (props) => {
                     <BsStar className="buttonImage favorite"
                         color={props.favorites ? '#fdd910' : 'gray'}
                         onClick={() => {
-                            console.log(props.favorites);
+                            console.log(props.id);
                             setCanFavorites(!canFavorites);
                             props.addFavorites(props.id)
                             // props.setCardsData()

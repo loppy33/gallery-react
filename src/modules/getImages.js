@@ -39,6 +39,8 @@ function generateImageUrl(PER_PAGE, page, query, favoriteId) {
   const url = new URL(baseUrl);
   url.searchParams.append('per_page', PER_PAGE);
   url.searchParams.append('page', page);
+  // url.searchParams.append('orientation', 'square');
+  // url.searchParams.append('color', 'black');
   if (favoriteId) {
     url.searchParams.append('photos', favoriteId)
   }

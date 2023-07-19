@@ -8,15 +8,17 @@ const GalleryList = (props) => {
     const { data } = props;
     const colsNumber = props.colsNumber;
 
-    const cols = Array.from({ length: colsNumber }, () => []);
+    const cols = Array. from({ length: colsNumber }, () => []);
 
+    let counter = 0;
     data.forEach((item, index) => {
         console.log(item.favorites);
         if (props.onlyFavorite && !item.favorites) {
             return;
         }
-        const colIndex = index % colsNumber;
+        const colIndex = counter % colsNumber;
         cols[colIndex].push(item);
+        counter += 1
     });
 
     const generateCardItems = (col) => {
@@ -26,8 +28,8 @@ const GalleryList = (props) => {
                 likes={e.likes}
                 favorites={e.favorites}
                 key={id}
-                id={id}
-                isVisible={visibleCards.includes(id.toString())}
+                id={e.id}
+                isVisible={visibleCards.includes(e.id.toString())}
                 initialVisible={id < 1}
                 setCardsData={props.setCardsData}
                 addFavorites={props.addFavorites}

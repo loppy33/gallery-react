@@ -8,13 +8,14 @@ import { AiFillMessage, AiOutlineSearch, AiOutlineZoomIn, AiOutlineZoomOut } fro
 import { BiImageAlt } from 'react-icons/bi';
 
 import { BsStar } from 'react-icons/bs';
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
 import '@fortawesome/fontawesome-free/css/all.css';
 
 
 const Header = (props) => {
     // const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+    const [orientation, setOrientation] = useState(false);
     const searchInputRef = useRef(null);
 
     const toggleOptions = () => {
@@ -87,6 +88,23 @@ const Header = (props) => {
                 <div className="zoom">
                     <a href="#/" className='zoomButton' onClick={() => props.setColsNumber(colsNumber => colsNumber > 1 ? colsNumber - 1 : colsNumber)}><AiOutlineZoomOut /></a>
                     <a href="#/" className='zoomButton' onClick={() => props.setColsNumber(colsNumber => colsNumber < 10 ? colsNumber + 1 : colsNumber)}><AiOutlineZoomIn /></a>
+                </div>
+                <div className="orientation">
+                    <a href="#/" onClick={() => { setOrientation(orientation => !orientation) }} >Ориентация</a>
+                    <ul style={orientation ? { opacity: 1, pointerEvents: 'auto' } : {}}>
+                        <li>
+                            <a href="#/">Любая ориетанция</a>
+                        </li>
+                        <li>
+                            <a href="#/">Горизонтальные</a>
+                        </li>
+                        <li>
+                            <a href="#/">Вертикальные</a>
+                        </li>
+                        <li>
+                            <a href="#/">Квадратные</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
