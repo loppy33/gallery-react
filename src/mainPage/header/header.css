@@ -210,6 +210,11 @@
 
 .orientation ul a {
     border: none;
+    transition: 0.1s;
+}
+
+.orientation ul a:hover {
+    background-color: #dddddd50;
 }
 
 .orientation {
