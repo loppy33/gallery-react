@@ -159,44 +159,38 @@
 
 }
 
-.searchIcon {
-    transform: translateY(10%);
-    /* display: block; */
-}
-
 .filters {
     background-color: #fdfdfd;
     box-shadow: rgba(149, 157, 165, 0.2) 0 0.8vh 2.4vh;
     border-radius: 1vh;
     width: 50%;
     margin: auto;
-    padding: 1vh;
+    padding: 0.5vh 1vh;
 }
 
 .filters a {
     color: #000;
-    font-size: 3vh;
+    font-size: 2.5vh;
 }
 
 .filters a svg {
     display: block;
-    height: 40px;
+    height: 3vh;
 }
 
 .zoom {
     border: 1px solid #00000020;
     border-radius: 1vh;
-    width: 10vh;
-    /* padding: 0.3vh; */
     text-align: center;
     display: inline-block;
     vertical-align: middle;
+    font-size: 0;
+    padding: 0 1vh;
+
 }
 
 .zoom .zoomButton {
-    transform: translateY(10%);
     padding: 0 0.5vh;
-    
 }
 
 .orientation ul {
@@ -209,14 +203,13 @@
     z-index: 1;
     background-color: #fff;
     border-radius: 1vh;
-    font-size: 2.5vh;
     padding: 1vh;
-    top: 5vh;
+    white-space: nowrap;
+    top: 3.5vh;
 }
 
 .orientation ul a {
     border: none;
-    
 }
 
 .orientation {
@@ -228,10 +221,10 @@
 
 .orientation a {
     text-decoration: none;
-    line-height: 40px;
+    line-height: 3vh;
     border: 1px solid #00000020;
     border-radius: 1vh;
-    font-size: 3vh;
-    padding: 0 0.5vh;
+    font-size: 1.5vh;
+    padding: 0 1vh;
     display: block;
 }

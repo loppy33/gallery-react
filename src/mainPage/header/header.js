@@ -11,13 +11,13 @@ import { BsStar } from 'react-icons/bs';
 import React, { useRef, useEffect, useState } from 'react';
 
 import '@fortawesome/fontawesome-free/css/all.css';
+import { drop } from 'lodash';
 
 
 const Header = (props) => {
     // const [isOptionsOpen, setIsOptionsOpen] = useState(false);
-    const [orientation, setOrientation] = useState(false);
     const searchInputRef = useRef(null);
-
+    console.log(props.searchInput.query ? 'yes' : 'no');
     const toggleOptions = () => {
         props.setOnlyFavorite(!props.onlyFavorite);
     };
@@ -90,8 +90,10 @@ const Header = (props) => {
                     <a href="#/" className='zoomButton' onClick={() => props.setColsNumber(colsNumber => colsNumber < 10 ? colsNumber + 1 : colsNumber)}><AiOutlineZoomIn /></a>
                 </div>
                 <div className="orientation">
-                    <a href="#/" onClick={() => { setOrientation(orientation => !orientation) }} >Ориентация</a>
-                    <ul style={orientation ? { opacity: 1, pointerEvents: 'auto' } : {}}>
+                    <a href="#/" onClick={() => { props.setDropDowns(dropDowns => dropDowns === 'orientation' ? null : 'orientation') }}
+                        style={props.searchInput.query ? {} : { opacity: 0.5, cursor: 'not-allowed', pointerEvents: 'none' }} >Ориентация</a>
+
+                    <ul style={props.dropDowns === 'orientation' ? { opacity: 1, pointerEvents: 'auto' } : {}}>
                         <li>
                             <a href="#/">Любая ориетанция</a>
                         </li>

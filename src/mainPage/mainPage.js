@@ -15,6 +15,8 @@ function MainPage() {
   const sentinelRef = useRef(null);
   const [searchInput, setSearchInput] = useState({ query: '', page: 0 });
   const [hasMoreImages, setHasMoreImages] = useState(true);
+  const [dropDowns, setDropDowns] = useState(null);
+
 
   const [colsNumber, setColsNumber] = useState(3)
 
@@ -145,18 +147,21 @@ function MainPage() {
   }
 
   return (
-    <div className="mainPage">
+    <div className="mainPage" onClick={() => dropDowns ? setDropDowns(null) : null}>
       {isModal && <AddPics setModal={setModal} handleCards={handleCards} />}
 
       <Header
         setModal={setModal}
         loadMoreImages={loadMoreImages}
         setSearchInput={setSearchInput}
+        searchInput={searchInput}
         setCardsData={setCardsData}
         setHasMoreImages={setHasMoreImages}
         setColsNumber={setColsNumber}
         setOnlyFavorite={setOnlyFavorite}
         onlyFavorite={onlyFavorite}
+        dropDowns={dropDowns}
+        setDropDowns={setDropDowns}
       />
 
       <div className="gallery-list">
