@@ -177,4 +177,4 @@ function MainPage() {
 
 export default MainPage;
 
-// TODO сделать сохранения избранных
+// TODO сделать сохранения избранных, доделать фильтр с цветом

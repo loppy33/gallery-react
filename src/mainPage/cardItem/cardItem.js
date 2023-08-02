@@ -67,7 +67,7 @@ const CardItem = (props) => {
                             // props.setCardsData()
 
                         }} />
-                    <LuDownload className="buttonImage download" />
+                    <a href="https://images.pexels.com/photos/4737484/pexels-photo-4737484.jpeg" download="AwesomeImage.png"><LuDownload className="buttonImage download" /></a>
                 </div>
                 <div className="second">
                     <AiOutlineHeart

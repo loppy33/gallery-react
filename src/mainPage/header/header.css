@@ -193,7 +193,7 @@
     padding: 0 0.5vh;
 }
 
-.orientation ul {
+.filter ul {
     transition: 0.3s;
     opacity: 0;
     pointer-events: none;
@@ -208,23 +208,30 @@
     top: 3.5vh;
 }
 
-.orientation ul a {
+.filter ul a {
     border: none;
     transition: 0.1s;
 }
 
-.orientation ul a:hover {
+.filter ul a:hover {
     background-color: #dddddd50;
 }
 
-.orientation {
+.filter {
     position: relative;
     display: inline-block;
     vertical-align: middle;
     margin-left: 1vh;
+
 }
 
-.orientation a {
+.filter a svg {
+    display: inline-block;
+    vertical-align: middle;
+
+}
+
+.filter a {
     text-decoration: none;
     line-height: 3vh;
     border: 1px solid #00000020;
@@ -233,3 +240,4 @@
     padding: 0 1vh;
     display: block;
 }
+

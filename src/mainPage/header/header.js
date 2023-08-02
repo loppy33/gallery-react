@@ -4,14 +4,17 @@ import Avatar from '../../assets/avatar.png';
 
 import { LuBell } from 'react-icons/lu';
 import { AiFillMessage, AiOutlineSearch, AiOutlineZoomIn, AiOutlineZoomOut } from 'react-icons/ai';
+import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 
 import { BiImageAlt } from 'react-icons/bi';
+import { BsCheck2 } from 'react-icons/bs';
+
 
 import { BsStar } from 'react-icons/bs';
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 
 import '@fortawesome/fontawesome-free/css/all.css';
-import { drop } from 'lodash';
+
 
 
 const Header = (props) => {
@@ -22,11 +25,11 @@ const Header = (props) => {
         props.setOnlyFavorite(!props.onlyFavorite);
     };
 
-    const handleSearch = (event) => {
+    const handleSearch = (event, orientation = '', size = '') => {
         event.preventDefault();
         const searchValue = searchInputRef.current.value.replace(/\s+/g, "_");
         props.setHasMoreImages(true)
-        props.setSearchInput({ query: searchValue, page: 0 });
+        props.setSearchInput({ query: searchValue, page: 0, orientation: orientation, size: size });
         props.setCardsData([]);
     };
 
@@ -89,22 +92,42 @@ const Header = (props) => {
                     <a href="#/" className='zoomButton' onClick={() => props.setColsNumber(colsNumber => colsNumber > 1 ? colsNumber - 1 : colsNumber)}><AiOutlineZoomOut /></a>
                     <a href="#/" className='zoomButton' onClick={() => props.setColsNumber(colsNumber => colsNumber < 10 ? colsNumber + 1 : colsNumber)}><AiOutlineZoomIn /></a>
                 </div>
-                <div className="orientation">
+                <div className="filter">
                     <a href="#/" onClick={() => { props.setDropDowns(dropDowns => dropDowns === 'orientation' ? null : 'orientation') }}
-                        style={props.searchInput.query ? {} : { opacity: 0.5, cursor: 'not-allowed', pointerEvents: 'none' }} >Ориентация</a>
+                        style={ props.searchInput.query ? props.searchInput.orientation ? { backgroundColor: '#dddddd50' } : {} : { opacity: 0.5, cursor: 'not-allowed', pointerEvents: 'none' } } >Ориентация <MdOutlineKeyboardArrowDown /></a>
 
                     <ul style={props.dropDowns === 'orientation' ? { opacity: 1, pointerEvents: 'auto' } : {}}>
                         <li>
-                            <a href="#/">Любая ориетанция</a>
+                            <a href="#/" onClick={(event) => handleSearch(event, '', props.searchInput.size)}>{props.searchInput.orientation === '' ? <BsCheck2/> : ''}Любая ориетанция</a>
                         </li>
                         <li>
-                            <a href="#/">Горизонтальные</a>
+                            <a href="#/" onClick={(event) => handleSearch(event, 'landscape', props.searchInput.size)}>{props.searchInput.orientation === 'landscape' ? <BsCheck2/> : ''} Горизонтальные</a>
                         </li>
                         <li>
-                            <a href="#/">Вертикальные</a>
+                            <a href="#/" onClick={(event) => handleSearch(event, 'portrait', props.searchInput.size)}>{props.searchInput.orientation === 'portrait' ? <BsCheck2/> : ''} Вертикальные</a>
                         </li>
                         <li>
-                            <a href="#/">Квадратные</a>
+                            <a href="#/" onClick={(event) => handleSearch(event, 'square', props.searchInput.size)}>{props.searchInput.orientation === 'square' ? <BsCheck2/> : ''} Квадратные</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div className="filter">
+                    <a href="#/" onClick={() => { props.setDropDowns(dropDowns => dropDowns === 'size' ? null : 'size') }}
+                        style={ props.searchInput.query ? props.searchInput.size ? { backgroundColor: '#dddddd50' } : {} : { opacity: 0.5, cursor: 'not-allowed', pointerEvents: 'none' } } >Размер <MdOutlineKeyboardArrowDown /></a>
+
+                    <ul style={props.dropDowns === 'size' ? { opacity: 1, pointerEvents: 'auto' } : {}}>
+                        <li>
+                            <a href="#/" onClick={(event) => handleSearch(event, props.searchInput.orientation, '')}>{props.searchInput.size === '' ? <BsCheck2/> : ''}Любые размеры</a>
+                        </li>
+                        <li>
+                            <a href="#/" onClick={(event) => handleSearch(event, props.searchInput.orientation, 'large')}>{props.searchInput.size === 'large' ? <BsCheck2/> : ''} Большой</a>
+                        </li>
+                        <li>
+                            <a href="#/" onClick={(event) => handleSearch(event, props.searchInput.orientation, 'medium')}>{props.searchInput.size === 'medium' ? <BsCheck2/> : ''} Средний</a>
+                        </li>
+                        <li>
+                            <a href="#/" onClick={(event) => handleSearch(event, props.searchInput.orientation, 'small')}>{props.searchInput.size === 'small' ? <BsCheck2/> : ''} Маленьнкий</a>
                         </li>
                     </ul>
                 </div>
