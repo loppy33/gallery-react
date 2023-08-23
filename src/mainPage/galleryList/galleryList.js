@@ -12,7 +12,7 @@ const GalleryList = (props) => {
 
     let counter = 0;
     data.forEach((item, index) => {
-        console.log(item.favorites);
+        // console.log(item.favorites);
         if (props.onlyFavorite && !item.favorites) {
             return;
         }
