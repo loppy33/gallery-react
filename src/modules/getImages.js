@@ -5,7 +5,7 @@ async function getImages(PER_PAGE, searchInput, setSearchInput, favoriteId) {
     const newPage = Math.floor(Math.random() * 999) + 1;
     const page = searchInput.query.length === 0 ? newPage : searchInput.page + 1;
 
-    const url = generateImageUrl(PER_PAGE, page, searchInput.query, favoriteId, searchInput.orientation, searchInput.size);
+    const url = generateImageUrl(PER_PAGE, page, searchInput.query, favoriteId, searchInput.orientation, searchInput.size, searchInput.color);
 
     const response = await fetch(url, {
       headers: {
@@ -34,15 +34,15 @@ async function getImages(PER_PAGE, searchInput, setSearchInput, favoriteId) {
   }
 }
 
-function generateImageUrl(PER_PAGE, page, query, favoriteId, orientation, size) {
+function generateImageUrl(PER_PAGE, page, query, favoriteId, orientation, size, color) {
   const baseUrl = query.length === 0 ? 'https://api.pexels.com/v1/curated' : 'https://api.pexels.com/v1/search';
   const url = new URL(baseUrl);
   url.searchParams.append('per_page', PER_PAGE);
   url.searchParams.append('page', page);
   url.searchParams.append('orientation', orientation);
   url.searchParams.append('size', size);
-  console.log(size);
-  // url.searchParams.append('color', 'black');
+  url.searchParams.append('color', color);
+  console.log('color: ' + color);
   if (favoriteId) {
     url.searchParams.append('photos', favoriteId)
   }

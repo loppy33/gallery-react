@@ -25,7 +25,8 @@ const Header = (props) => {
     const [liveSearchShow, setLiveSearchShow] = useState(false)
     const [liveSearchList, setLiveSearchList] = useState([])
     const [searchInputValue, setSearchInputValue] = useState('')
-    const [activeLi, setActiveLi] = useState(null)
+    // const [activeLi, setActiveLi] = useState(null)
+    const [color, setColor] = useState('')
 
     const toggleOptions = () => {
         props.setOnlyFavorite(!props.onlyFavorite);
@@ -40,20 +41,21 @@ const Header = (props) => {
                 if (
                     word.slice(0, searchInputRef.current.value.length) === searchInputRef.current.value
                 ) {
-
                     wordList.push(word)
                 }
             }
-            setLiveSearchList(wordList)
+            if (wordList.length > 1) {
+                setLiveSearchList(wordList)
+            } else { setLiveSearchShow(false) }
         }
         else { setLiveSearchShow(false) }
     }
 
-    const handleSearch = (event, orientation = '', size = '') => {
+    const handleSearch = (event, orientation = '', size = '', color = '') => {
         event.preventDefault();
         const searchValue = searchInputRef.current.value.replace(/\s+/g, "_");
         props.setHasMoreImages(true)
-        props.setSearchInput({ query: searchValue, page: 0, orientation: orientation, size: size });
+        props.setSearchInput({ query: searchValue, page: 0, orientation: orientation, size: size, color: color });
         props.setCardsData([]);
     };
 
@@ -117,6 +119,7 @@ const Header = (props) => {
                             ref={searchInputRef} onInput={() => liveSearch()} onKeyPress={(event) => {
                                 if (event.key === 'Enter') {
                                     handleSearch(event);
+                                    setLiveSearchShow(false)
                                 }
                             }} />
                         <button onClick={handleSearch}><AiOutlineSearch className='s
@@ -126,12 +129,12 @@ const Header = (props) => {
                             {
                                 liveSearchList.map((word, index) => (
                                     <li key={index}
-                                    // onKeyDown={(event) => {
-                                    //     // console.log(event.key);
-                                    // }}
+                                        // onKeyDown={(event) => {
+                                        //     // console.log(event.key);
+                                        // }}
                                         onClick={(event) => {
                                             setSearchInputValue(word)
-                                            setLiveSearchShow(!liveSearchShow)
+                                            setLiveSearchShow(false)
                                             handleSearch(event)
                                         }}>{word}</li>
                                 ))
@@ -153,16 +156,16 @@ const Header = (props) => {
 
                     <ul style={props.dropDowns === 'orientation' ? { opacity: 1, pointerEvents: 'auto' } : {}}>
                         <li>
-                            <a href="#/" onClick={(event) => handleSearch(event, '', props.searchInput.size)}>{props.searchInput.orientation === '' ? <BsCheck2 /> : ''}Любая ориетанция</a>
+                            <a href="#/" onClick={(event) => handleSearch(event, '', props.searchInput.size, color)}>{props.searchInput.orientation === '' ? <BsCheck2 /> : ''}Любая ориетанция</a>
                         </li>
                         <li>
-                            <a href="#/" onClick={(event) => handleSearch(event, 'landscape', props.searchInput.size)}>{props.searchInput.orientation === 'landscape' ? <BsCheck2 /> : ''} Горизонтальные</a>
+                            <a href="#/" onClick={(event) => handleSearch(event, 'landscape', props.searchInput.size, color)}>{props.searchInput.orientation === 'landscape' ? <BsCheck2 /> : ''} Горизонтальные</a>
                         </li>
                         <li>
-                            <a href="#/" onClick={(event) => handleSearch(event, 'portrait', props.searchInput.size)}>{props.searchInput.orientation === 'portrait' ? <BsCheck2 /> : ''} Вертикальные</a>
+                            <a href="#/" onClick={(event) => handleSearch(event, 'portrait', props.searchInput.size, color)}>{props.searchInput.orientation === 'portrait' ? <BsCheck2 /> : ''} Вертикальные</a>
                         </li>
                         <li>
-                            <a href="#/" onClick={(event) => handleSearch(event, 'square', props.searchInput.size)}>{props.searchInput.orientation === 'square' ? <BsCheck2 /> : ''} Квадратные</a>
+                            <a href="#/" onClick={(event) => handleSearch(event, 'square', props.searchInput.size, color)}>{props.searchInput.orientation === 'square' ? <BsCheck2 /> : ''} Квадратные</a>
                         </li>
                     </ul>
                 </div>
@@ -173,23 +176,29 @@ const Header = (props) => {
 
                     <ul style={props.dropDowns === 'size' ? { opacity: 1, pointerEvents: 'auto' } : {}}>
                         <li>
-                            <a href="#/" onClick={(event) => handleSearch(event, props.searchInput.orientation, '')}>{props.searchInput.size === '' ? <BsCheck2 /> : ''}Любые размеры</a>
+                            <a href="#/" onClick={(event) => handleSearch(event, props.searchInput.orientation, '', color)}>{props.searchInput.size === '' ? <BsCheck2 /> : ''}Любые размеры</a>
                         </li>
                         <li>
-                            <a href="#/" onClick={(event) => handleSearch(event, props.searchInput.orientation, 'large')}>{props.searchInput.size === 'large' ? <BsCheck2 /> : ''} Большой</a>
+                            <a href="#/" onClick={(event) => handleSearch(event, props.searchInput.orientation, 'large', color)}>{props.searchInput.size === 'large' ? <BsCheck2 /> : ''} Большой</a>
                         </li>
                         <li>
-                            <a href="#/" onClick={(event) => handleSearch(event, props.searchInput.orientation, 'medium')}>{props.searchInput.size === 'medium' ? <BsCheck2 /> : ''} Средний</a>
+                            <a href="#/" onClick={(event) => handleSearch(event, props.searchInput.orientation, 'medium', color)}>{props.searchInput.size === 'medium' ? <BsCheck2 /> : ''} Средний</a>
                         </li>
                         <li>
-                            <a href="#/" onClick={(event) => handleSearch(event, props.searchInput.orientation, 'small')}>{props.searchInput.size === 'small' ? <BsCheck2 /> : ''} Маленьнкий</a>
+                            <a href="#/" onClick={(event) => handleSearch(event, props.searchInput.orientation, 'small', color)}>{props.searchInput.size === 'small' ? <BsCheck2 /> : ''} Маленьнкий</a>
                         </li>
                     </ul>
                 </div>
 
                 <div className="filter">
-                    <a href="#/">Цвет <span></span><input type="color" value='#ffffff'/></a>
-                    
+                    <a href="#/"
+                        style={props.searchInput.query ? props.searchInput.color ? { backgroundColor: '#dddddd50' } : {} : { opacity: 0.5, cursor: 'not-allowed', pointerEvents: 'none' }}>
+                        Цвет <span style={color ? { backgroundColor: color } : {}}></span><input type="color" value='#ffffff' onChange={(event) => {
+                            setColor(event.target.value)
+                            handleSearch(event, props.searchInput.color, props.searchInput.size, color)
+                            console.log(color);
+                        }} /></a>
+
                 </div>
             </div>
         </div>
