@@ -25,8 +25,9 @@ const Header = (props) => {
     const [liveSearchShow, setLiveSearchShow] = useState(false)
     const [liveSearchList, setLiveSearchList] = useState([])
     const [searchInputValue, setSearchInputValue] = useState('')
-    // const [activeLi, setActiveLi] = useState(null)
     const [color, setColor] = useState('')
+
+    const [activeLi, setActiveLi] = useState(-1)
 
     const toggleOptions = () => {
         props.setOnlyFavorite(!props.onlyFavorite);
@@ -46,14 +47,25 @@ const Header = (props) => {
             }
             if (wordList.length > 1) {
                 setLiveSearchList(wordList)
-            } else { setLiveSearchShow(false) }
+            } else { 
+                setLiveSearchShow(false)
+                setActiveLi(-1) 
+            }
         }
-        else { setLiveSearchShow(false) }
+        else { 
+            setLiveSearchShow(false)
+            setActiveLi(-1)
+         }
     }
 
-    const handleSearch = (event, orientation = '', size = '', color = '') => {
+    const handleSearch = (event, orientation = '', size = '', color = '', word='') => {
         event.preventDefault();
-        const searchValue = searchInputRef.current.value.replace(/\s+/g, "_");
+        let searchValue;
+        if (word) {
+            searchValue = word.replace(/\s+/g, "_");
+        } else {
+            searchValue = searchInputRef.current.value.replace(/\s+/g, "_");
+        }
         props.setHasMoreImages(true)
         props.setSearchInput({ query: searchValue, page: 0, orientation: orientation, size: size, color: color });
         props.setCardsData([]);
@@ -71,18 +83,6 @@ const Header = (props) => {
     };
     useEffect(() => {
         parallaxEffect();
-        // document.onkeydown = (event) => {
-        //     if (event.key === 'ArrowDown') {
-        //         // let newActiveLi = activeLi === null ? 0 : activeLi + 1
-        //         // setActiveLi(newActiveLi)
-        //         if(activeLi) {
-        //             let newActiveLi = activeLi
-        //             setActiveLi(newActiveLi+1)
-        //             console.log(activeLi);
-        //         } else { setActiveLi(0) }
-        //         console.log(activeLi);
-        //     }
-        // }
     }, []);
 
     return (
@@ -116,12 +116,38 @@ const Header = (props) => {
                             )}
                         </div>
                         <input type="text" value={searchInputValue} placeholder="Поиск бесплатных изображений"
-                            ref={searchInputRef} onInput={() => liveSearch()} onKeyPress={(event) => {
+                            ref={searchInputRef} onInput={() => liveSearch()} onKeyDown={(event) => {
                                 if (event.key === 'Enter') {
                                     handleSearch(event);
                                     setLiveSearchShow(false)
                                 }
+                                else if (event.key === 'ArrowDown') {
+
+                                    setActiveLi((currentActiveLi) => {
+                                        currentActiveLi = currentActiveLi + 1
+                                        let ul = document.getElementsByClassName('liveSearch')[0]
+                                        if (currentActiveLi > 4) {
+                                            ul.scrollTo(0, ul.scrollTop + 30)
+                                        }   
+                                        return currentActiveLi
+                                    })
+
+
+                                }
+                                else if (event.key === 'ArrowUp') {
+
+                                    setActiveLi((currentActiveLi) => {
+                                        currentActiveLi = currentActiveLi - 1
+                                        let ul = document.getElementsByClassName('liveSearch')[0]
+                                        console.log((ul.scrollTop - currentActiveLi  * 30));
+                                        if ((ul.scrollTop - currentActiveLi  * 30) > 20) {
+                                            ul.scrollTo(0, ul.scrollTop - 30)
+                                        }   
+                                        return currentActiveLi
+                                    })
+                                }
                             }} />
+                            
                         <button onClick={handleSearch}><AiOutlineSearch className='s
                         earchIcon' /></button>
 
@@ -129,13 +155,13 @@ const Header = (props) => {
                             {
                                 liveSearchList.map((word, index) => (
                                     <li key={index}
-                                        // onKeyDown={(event) => {
-                                        //     // console.log(event.key);
-                                        // }}
+                                        
+                                        style={(activeLi % liveSearchList.length) === index ? {backgroundColor: '#dfdfe0'} : {}}
                                         onClick={(event) => {
                                             setSearchInputValue(word)
                                             setLiveSearchShow(false)
-                                            handleSearch(event)
+                                            setActiveLi(-1)
+                                            handleSearch(event, undefined, undefined, undefined, word)
                                         }}>{word}</li>
                                 ))
                             }
