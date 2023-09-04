@@ -8,11 +8,10 @@ const GalleryList = (props) => {
     const { data } = props;
     const colsNumber = props.colsNumber;
 
-    const cols = Array. from({ length: colsNumber }, () => []);
+    const cols = Array.from({ length: colsNumber }, () => []);
 
     let counter = 0;
     data.forEach((item, index) => {
-        // console.log(item.favorites);
         if (props.onlyFavorite && !item.favorites) {
             return;
         }
@@ -33,6 +32,8 @@ const GalleryList = (props) => {
                 initialVisible={id < 1}
                 setCardsData={props.setCardsData}
                 addFavorites={props.addFavorites}
+                setFullScreen={props.setFullScreen}
+                data={data}
             />
         ));
     };

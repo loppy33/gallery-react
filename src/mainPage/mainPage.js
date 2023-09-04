@@ -3,6 +3,7 @@ import './mainPage.css';
 import AddPics from './addPics/addPics';
 import GalleryList from './galleryList/galleryList';
 import Header from './header/header';
+import FullScreen from './fullScreen/fullScreen';
 
 import getImages from '../modules/getImages';
 
@@ -17,10 +18,12 @@ function MainPage() {
   const [hasMoreImages, setHasMoreImages] = useState(true);
   const [dropDowns, setDropDowns] = useState(null);
 
+  const [fullScreen, setFullScreen] = useState(null);
+
 
   const [colsNumber, setColsNumber] = useState(3)
 
-  const handleCards = useCallback((id, card, alt) => {
+  const handleCards = useCallback((id, card, alt, photographer, photographer_id) => {
     setCardsData(prevData => [
       {
         id: id,
@@ -29,6 +32,8 @@ function MainPage() {
         comments: null,
         favorites: false,
         alt: alt,
+        photographer: photographer,
+        photographer_id: photographer_id,
       },
       ...prevData
     ]);
@@ -57,6 +62,8 @@ function MainPage() {
         comments: null,
         favorites: false,
         alt: photo.alt,
+        photographer: photo.photographer,
+        photographer_id: photo.photographer_id
       }));
 
       setCardsData(prevData => {
@@ -150,6 +157,8 @@ function MainPage() {
     <div className="mainPage" onClick={() => dropDowns ? setDropDowns(null) : null}>
       {isModal && <AddPics setModal={setModal} handleCards={handleCards} />}
 
+      {fullScreen ? <FullScreen></FullScreen> : ''}
+
       <Header
         setModal={setModal}
         loadMoreImages={loadMoreImages}
@@ -165,7 +174,7 @@ function MainPage() {
       />
 
       <div className="gallery-list">
-        <GalleryList data={cardsData} colsNumber={colsNumber} setCardsData={setCardsData} onlyFavorite={onlyFavorite} addFavorites={addFavorites} />
+        <GalleryList data={cardsData} colsNumber={colsNumber} setCardsData={setCardsData} onlyFavorite={onlyFavorite} addFavorites={addFavorites} setFullScreen={setFullScreen} />
         {!onlyFavorite ? <img src="https://cdn.pixabay.com/animation/2022/10/11/03/16/03-16-39-160_512.gif" alt="" className="loading" /> : ''}
 
       </div>

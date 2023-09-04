@@ -232,5 +232,3 @@ const Header = (props) => {
 };
 
 export default Header;
-
-// TODO  убрать скрол бар в лайф серч, и сделать поиск по цвету

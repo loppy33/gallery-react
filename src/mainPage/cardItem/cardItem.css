@@ -1,7 +1,7 @@
 .cardBody {
     position: relative;
     margin: auto;
-    display: grid;
+    /* display: grid; */
     width: 100%;
     max-width: 45vh;
     border-radius: 1vh;
@@ -19,6 +19,7 @@
 }
 
 .buttonsImage {
+    pointer-events: none;
     position: absolute;
     font-size: 4vh;
     width: 100%;
@@ -30,12 +31,12 @@
     transition: 0.3s;
 }
 
-.buttonsImage:hover {
+.cardBody:hover .buttonsImage {
     opacity: 0.9;
     background-color: #0000000a;
 }
 
-.buttonImage {
+.cardBody .first, .second {
     margin: 1vh 0.5vh;
     background-color: #ffffff;
     padding: 1vh;
@@ -44,15 +45,17 @@
     transition: 0.3s;
 }
 
-.buttonsImage .first {
+.cardBody .first {
     position: absolute;
+    top: 0;
     right: 0;
     height: 6vh;
 }
 
-.buttonsImage .second {
+.cardBody .second {
     position: absolute;
     bottom: 0;
+    left: 0;
     height: 6vh;
     
 }
@@ -72,6 +75,7 @@
     object-fit: cover;
     border-radius: 1vh;
     transition: 0.3s;
+    display: block;
 }
 
 

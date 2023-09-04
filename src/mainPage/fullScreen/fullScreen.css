@@ -1,0 +1,43 @@
+.fullScreen {
+    position: fixed;
+    backdrop-filter: blur(10px);
+    background-color: #00000060;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    top: 0;
+    left: 0;
+}
+
+.imageInfo {
+    background-color: #fff;
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 30px;
+}
+
+.imageInfo .cross {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 40px;
+    height: 40px;
+    color: #bebebe;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.imageInfo .cross:hover {
+    color: #000;
+}
+
+.imageInfo .image {
+    max-width: calc(100% - 160px);
+    max-height: calc(100%);
+    display: block;
+    margin: auto;
+}

@@ -8,6 +8,7 @@ import { BsStar } from 'react-icons/bs';
 import MyImage from '../../assets/placeholder.png';
 import './cardItem.css';
 
+
 const CardItem = (props) => {
     // eslint-disable-next-line
     const [likesCount, setLikesCount] = useState(props.likes);
@@ -55,9 +56,12 @@ const CardItem = (props) => {
             style={cardStyle}
             id={props.id}
             key={props.id}
+            
         >
             <div className="buttonsImage">
-                <div className="first">
+
+            </div>
+            <div className="first">
                     <BsStar className="buttonImage favorite"
                         color={props.favorites ? '#fdd910' : 'gray'}
                         onClick={() => {
@@ -80,12 +84,14 @@ const CardItem = (props) => {
                     />
                     <BiComment className="buttonImage comment" onClick={handleCommentButtonClick} />
                 </div>
-            </div>
             <div className="commentSection" style={isCommenting ? { transform: 'translateY(100%)' } : {}}>
                 <input className="commentInput" placeholder="Оставить комментарий" />
                 <FaTelegramPlane className="commentButton" />
             </div>
-            <img src={imageHandler()} alt="" className="cardImage" onLoad={handleImageLoad} />
+            <img src={imageHandler()} alt="" className="cardImage" onLoad={handleImageLoad} onClick={() => {
+                props.setFullScreen(1)
+                // console.log(props.data);
+            }}/>
         </div>
     );
 };
