@@ -45,7 +45,6 @@ const CardItem = (props) => {
     const imageHandler = () => (props.image ? props.image : MyImage);
 
     const handleImageLoad = () => {
-        console.log(123);
         setIsImageLoaded(true);
     };
 
@@ -56,42 +55,40 @@ const CardItem = (props) => {
             style={cardStyle}
             id={props.id}
             key={props.id}
-            
+
         >
             <div className="buttonsImage">
 
             </div>
             <div className="first">
+                <a href="#/">
                     <BsStar className="buttonImage favorite"
                         color={props.favorites ? '#fdd910' : 'gray'}
                         onClick={() => {
-                            console.log(props.id);
                             setCanFavorites(!canFavorites);
                             props.addFavorites(props.id)
-                            // props.setCardsData()
-
                         }} />
-                    <a href="https://images.pexels.com/photos/4737484/pexels-photo-4737484.jpeg" download="AwesomeImage.png"><LuDownload className="buttonImage download" /></a>
-                </div>
-                <div className="second">
-                    <AiOutlineHeart
-                        className="buttonImage like"
-                        color={canLike ? 'gray' : 'red'}
-                        onClick={() => {
-                            setCanLike(!canLike);
-                            setLikesCount((state) => state + (canLike ? 1 : -1));
-                        }}
-                    />
-                    <BiComment className="buttonImage comment" onClick={handleCommentButtonClick} />
-                </div>
+                </a>
+                <a href="https://images.pexels.com/photos/4737484/pexels-photo-4737484.jpeg" download="AwesomeImage.png"><LuDownload className="buttonImage download" /></a>
+            </div>
+            <div className="second">
+                <AiOutlineHeart
+                    className="buttonImage like"
+                    color={canLike ? 'gray' : 'red'}
+                    onClick={() => {
+                        setCanLike(!canLike);
+                        setLikesCount((state) => state + (canLike ? 1 : -1));
+                    }}
+                />
+                <BiComment className="buttonImage comment" onClick={handleCommentButtonClick} />
+            </div>
             <div className="commentSection" style={isCommenting ? { transform: 'translateY(100%)' } : {}}>
                 <input className="commentInput" placeholder="Оставить комментарий" />
                 <FaTelegramPlane className="commentButton" />
             </div>
             <img src={imageHandler()} alt="" className="cardImage" onLoad={handleImageLoad} onClick={() => {
-                props.setFullScreen(1)
-                // console.log(props.data);
-            }}/>
+                props.setFullScreen(imageHandler())
+            }} />
         </div>
     );
 };

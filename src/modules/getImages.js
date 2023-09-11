@@ -42,7 +42,7 @@ function generateImageUrl(PER_PAGE, page, query, favoriteId, orientation, size, 
   url.searchParams.append('orientation', orientation);
   url.searchParams.append('size', size);
   url.searchParams.append('color', color);
-  console.log('color: ' + color);
+  
   if (favoriteId) {
     url.searchParams.append('photos', favoriteId)
   }

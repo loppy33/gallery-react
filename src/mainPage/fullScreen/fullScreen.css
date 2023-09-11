@@ -7,17 +7,19 @@
     z-index: 100;
     top: 0;
     left: 0;
+    overflow-y: scroll;
 }
 
 .imageInfo {
     background-color: #fff;
     position: absolute;
     width: 80%;
-    height: 80%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 30px;
+    padding: 20px;
+
 }
 
 .imageInfo .cross {
@@ -37,7 +39,45 @@
 
 .imageInfo .image {
     max-width: calc(100% - 160px);
-    max-height: calc(100%);
     display: block;
     margin: auto;
+    margin-bottom: 10px;
+
 }
+
+.photographerImage {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 100%;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+
+.photoInfo {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.imageInfo .likes {
+    vertical-align: middle;
+    font-size: 30px;
+    text-decoration: none;
+    color: #464646;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+
+}
+
+.imageInfo .likes svg {
+    vertical-align: middle;
+}
+
+.fullSizeBottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+

@@ -16,7 +16,6 @@ import React, { useRef, useEffect, useState } from 'react';
 import '@fortawesome/fontawesome-free/css/all.css';
 
 import { commonWords } from '../../modules/words';
-// console.log(commonWords);
 
 const Header = (props) => {
     // const [isOptionsOpen, setIsOptionsOpen] = useState(false);
@@ -222,7 +221,6 @@ const Header = (props) => {
                         Цвет <span style={color ? { backgroundColor: color } : {}}></span><input type="color" value='#ffffff' onChange={(event) => {
                             setColor(event.target.value)
                             handleSearch(event, props.searchInput.color, props.searchInput.size, color)
-                            console.log(color);
                         }} /></a>
 
                 </div>

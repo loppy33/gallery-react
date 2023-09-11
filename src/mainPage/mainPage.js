@@ -73,7 +73,6 @@ function MainPage() {
         return newData;
       });
 
-      console.log(data.photos.length);
       if (data.photos.length < 1) {
         setHasMoreImages(false);
 
@@ -90,7 +89,6 @@ function MainPage() {
   useEffect(() => {
     const handleIntersection = ([entry]) => {
       const { isIntersecting } = entry;
-      console.log(isIntersecting, hasMoreImages, onlyFavorite);
 
       if (isIntersecting && hasMoreImages && !onlyFavorite) {
         loadMoreImages();
@@ -147,8 +145,6 @@ function MainPage() {
     let newCardsData = cardsData.slice();
     let favoriteImage = newCardsData.find(el => el['id'] === id)
 
-    console.log(favoriteImage);
-
     favoriteImage.favorites = !favoriteImage.favorites
     setCardsData(newCardsData)
   }
@@ -157,7 +153,7 @@ function MainPage() {
     <div className="mainPage" onClick={() => dropDowns ? setDropDowns(null) : null}>
       {isModal && <AddPics setModal={setModal} handleCards={handleCards} />}
 
-      {fullScreen ? <FullScreen></FullScreen> : ''}
+      {fullScreen ? <FullScreen setFullScreen={setFullScreen} image={fullScreen}></FullScreen> : ''}
 
       <Header
         setModal={setModal}
